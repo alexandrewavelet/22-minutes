@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chronologie — Outer Wilds</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .intro { padding-top: 48px; max-width: 720px; }
+  .tl { position: relative; margin-top: 40px; padding-left: 0; }
+  .tl::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; transform: translateX(-50%);
+    background: linear-gradient(to bottom, var(--sun), var(--nomai-violet) 50%, var(--ember)); opacity: .55; }
+  .step { position: relative; width: calc(50% - 46px); margin-bottom: 40px; }
+  .step:nth-child(odd) { margin-right: auto; }
+  .step:nth-child(even) { margin-left: auto; }
+  .step .node { position: absolute; top: 18px; width: 58px; height: 58px; border-radius: 50%; background: var(--space-1); border: 2px solid var(--line-strong); display: grid; place-items: center; }
+  .step:nth-child(odd) .node { right: -75px; }
+  .step:nth-child(even) .node { left: -75px; }
+  .step.current .node { border-color: var(--ember); box-shadow: 0 0 0 6px rgba(255,138,61,.15), 0 0 30px rgba(255,138,61,.4); }
+  .step .hours { font-family: var(--font-type); color: var(--ember); font-size: 13px; letter-spacing: .12em; }
+  .step h3 { font-size: 24px; margin: 4px 0 10px; }
+  .step ul { margin: 0; padding-left: 18px; }
+  .step li { margin: 6px 0; color: #d6d3ca; }
+  .step .pls { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+  .step .pls a { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; padding: 3px 10px 3px 4px; border: 1px solid var(--line); border-radius: 99px; color: var(--muted); }
+  .step .pls a:hover { color: var(--ink); border-color: var(--line-strong); }
+  .est { margin-top: 12px; font-family: var(--font-hand); font-size: 21px; color: var(--nomai-violet); }
+  .nowtag { display: inline-block; margin-left: 8px; font-family: var(--font-type); font-size: 11px; color: #1a0d03; background: var(--ember); padding: 2px 8px; border-radius: 99px; vertical-align: middle; }
+  .end { text-align: center; font-family: var(--font-hand); font-size: 28px; color: var(--muted); position: relative; padding-top: 10px; }
+  .end .q { display: inline-block; width: 58px; height: 58px; line-height: 54px; border-radius: 50%; border: 2px dashed var(--line-strong); background: var(--space-0); font-family: var(--font-title); font-size: 24px; color: var(--faint); }
+  @media (max-width: 760px) {
+    .tl::before { left: 22px; }
+    .step { width: auto; margin-left: 60px !important; }
+    .step .node { left: -66px !important; right: auto !important; width: 44px; height: 44px; }
+    .end { text-align: left; padding-left: 0; }
+  }
+</style>
+</head>
+<body data-page="chronologie">
+<div class="page">
+  <section class="intro" style="margin-top:0">
+    <div class="eyebrow">Récit de l’expédition</div>
+    <h1>Chronologie</h1>
+    <p class="muted" style="font-size:18px">De l’atelier d’Âtrebois aux ronces de Sombronces, heure de jeu par heure de jeu. Les estimations de progression données en cours de route sont notées à la main.</p>
+  </section>
+  <div class="tl" id="tl"></div>
+  <div class="end"><span class="q">?</span><div style="margin-top:10px">La suite reste à écrire…</div></div>
+</div>
+<script src="assets/data.js"></script>
+<script src="assets/journal.js"></script>
+<script src="assets/common.js"></script>
+<script>
+(function () {
+  const D = OW, { esc, planetSVG, planet } = OWUI;
+  const est = { t2: "Estimation à 4–5 h : 20–30 %", t4: "Estimation à ~8 h : 40–50 % · à 10 h : 50–60 %", t6: "Projet Sablière noire atteint : ≈ 60 %", t7: "Fin estimée : 18–22 h au total" };
+  // Répartition des notes du journal dans les étapes (ordre de découverte de la sauvegarde)
+  const { allFacts, ASTRO } = OWUI, byStep = {};
+  allFacts().forEach(f => {
+    const inR = D.timeline.filter(t => t.range && f.order >= t.range[0] && f.order <= t.range[1]);
+    const pl = (ASTRO[f.entry.astro] || [])[0];
+    const st = inR.find(t => t.planets.includes(pl)) || inR[0];
+    if (st) (byStep[st.id] = byStep[st.id] || []).push(f);
+  });
+  const notes = t => {
+    const fs = byStep[t.id]; if (!fs) return "";
+    return `<details class="logx"><summary>📓 ${fs.length} notes débloquées pendant cette étape (${esc(t.order)})</summary>
+      <ul class="logfacts">${fs.map(f => `<li class="${f.rumor ? "rumor" : "explore"}"><span class="n">#${f.order}</span>${f.unread ? `<span class="new">nouveau</span>` : ""}<b style="font-style:normal;color:var(--ink)">${esc(f.entry.name)}</b> — ${esc(f.text)}</li>`).join("")}</ul></details>`;
+  };
+  if (window.OW_JOURNAL) document.querySelector(".intro p").insertAdjacentHTML("beforeend", ` L’ordre des étapes est reconstitué à partir de ta sauvegarde : chaque note du journal y porte son numéro d’ordre de découverte (#).`);
+  document.getElementById("tl").innerHTML = D.timeline.map(t => `
+    <div class="step panel reveal ${t.current ? "current" : ""}" id="${t.id}">
+      <div class="node">${planetSVG(t.planets[0], 46)}</div>
+      <div class="hours">${esc(t.hours)}${t.current ? `<span class="nowtag">MAINTENANT</span>` : ""}</div>
+      <h3>${esc(t.title)}</h3>
+      <ul>${t.items.map(i => `<li>${esc(i)}</li>`).join("")}</ul>
+      ${est[t.id] ? `<div class="est">✎ ${esc(est[t.id])}</div>` : ""}
+      ${notes(t)}
+      <div class="pls">${t.planets.map(p => `<a href="${planet(p).page}">${planetSVG(p, 22)}${esc(planet(p).name)}</a>`).join("")}</div>
+    </div>`).join("");
+})();
+</script>
+</body>
+</html>

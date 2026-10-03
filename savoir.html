@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ce que je sais — Outer Wilds</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .intro { padding-top: 48px; max-width: 720px; }
+  .rule { position: relative; overflow: hidden; }
+  .rule .num { position: absolute; right: 14px; top: 2px; font-family: var(--font-title); font-size: 90px; font-weight: 700; color: rgba(185,156,255,.08); line-height: 1; }
+  .rule svg.ill { width: 100%; height: 120px; display: block; margin-bottom: 10px; }
+  .rule h3 { color: var(--nomai-violet); }
+  .rule .where { font-family: var(--font-type); font-size: 12px; color: var(--faint); margin-top: 10px; }
+  .loopbar { width: 100%; height: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  th { font-family: var(--font-type); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
+  td .with { display: flex; align-items: center; gap: 10px; }
+  .tips li { margin: 8px 0; color: #d6d3ca; }
+  .tips b { color: var(--ink); }
+  .kbd { font-family: var(--font-type); font-size: 12px; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 5px; padding: 1px 6px; color: var(--ink); }
+  .maxim { font-family: var(--font-hand); font-size: 26px; line-height: 1.2; color: #f3e4d6; padding: 18px 22px; border-left: 3px solid var(--ember); background: var(--ember-soft); border-radius: 0 12px 12px 0; margin: 0 0 14px; }
+</style>
+</head>
+<body data-page="savoir">
+<div class="page">
+  <section class="intro" style="margin-top:0">
+    <div class="eyebrow">Connaissances acquises</div>
+    <h1>Ce que je sais</h1>
+    <p class="muted" style="font-size:18px">Dans Outer Wilds, la seule chose qui progresse, c’est ce que je comprends. Voici les règles, astuces et repères que j’ai accumulés — uniquement ce que j’ai déjà découvert ou ce qu’on m’a déjà indiqué.</p>
+  </section>
+
+  <section>
+    <h2>Les règles quantiques</h2>
+    <div class="grid grid-3">
+      <div class="panel rule reveal"><span class="num">1</span>
+        <svg class="ill" viewBox="0 0 300 120">
+          <g transform="translate(40,60)"><path d="M-30 0 Q0 -26 30 0 Q0 26 -30 0Z" fill="none" stroke="#ece8de" stroke-width="2"/><circle r="9" fill="#9db8ff"/></g>
+          <path d="M85 60 H125" stroke="#6b7592" stroke-width="2" stroke-dasharray="4 4"/>
+          <g transform="translate(150,60)"><circle r="18" fill="#8a86a0"/></g>
+          <g transform="translate(210,60)" opacity=".35"><path d="M-30 0 Q0 18 30 0" fill="none" stroke="#ece8de" stroke-width="2"/></g>
+          <g transform="translate(262,30)" opacity=".8"><circle r="14" fill="#8a86a0"><animate attributeName="opacity" values="0;1;1;0" dur="3s" repeatCount="indefinite"/></circle></g>
+          <g transform="translate(262,92)"><circle r="14" fill="#8a86a0"><animate attributeName="opacity" values="1;0;0;1" dur="3s" repeatCount="indefinite"/></circle></g>
+        </svg>
+        <h3>Observé, il se fige</h3>
+        <p>Un objet quantique ne bouge que lorsque <b>personne ne l’observe</b>. Dès qu’on le regarde, il reste en place.</p>
+        <div class="where">Appris : observations des objets quantiques, Tour du savoir quantique</div></div>
+
+      <div class="panel rule reveal"><span class="num">2</span>
+        <svg class="ill" viewBox="0 0 300 120">
+          <rect x="30" y="34" width="70" height="52" rx="8" fill="none" stroke="#ece8de" stroke-width="2"/><circle cx="65" cy="60" r="15" fill="none" stroke="#ece8de" stroke-width="2"/><rect x="40" y="26" width="18" height="8" rx="2" fill="#ece8de"/>
+          <path d="M110 60 H150" stroke="#b99cff" stroke-width="2" marker-end="url(#a2)"/><defs><marker id="a2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#b99cff"/></marker></defs>
+          <rect x="165" y="24" width="64" height="72" fill="#fbf8f0"/><rect x="171" y="30" width="52" height="46" fill="#1c2547"/><path d="M197 72 v-28 M197 50 l-10 -8 M197 56 l10 -9" stroke="#6fd39b" stroke-width="3"/>
+          <text x="262" y="66" fill="#6fd39b" font-family="Caveat" font-size="30" text-anchor="middle">=  👁</text>
+        </svg>
+        <h3>L’image vaut l’observation</h3>
+        <p>« Observer l’image d’un objet quantique, c’est la même chose que l’observer. » Une photo le fige autant qu’un regard.</p>
+        <div class="where">Appris : Tour du savoir quantique (étage de l’arbre et de l’écriteau)</div></div>
+
+      <div class="panel rule reveal"><span class="num">3</span>
+        <svg class="ill" viewBox="0 0 300 120">
+          <rect x="0" y="0" width="300" height="120" rx="10" fill="#03040a"/>
+          <g transform="translate(70,78)"><path d="M-30 14 Q0 -26 30 14Z" fill="#6b6780"/><circle cy="-22" r="7" fill="#ece8de"/><path d="M0 -15 v14" stroke="#ece8de" stroke-width="3"/></g>
+          <path d="M115 60 Q150 30 185 60" stroke="#b99cff" stroke-width="2" fill="none" stroke-dasharray="4 4" marker-end="url(#a3)"/><defs><marker id="a3" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#b99cff"/></marker></defs>
+          <g transform="translate(232,78)"><path d="M-30 14 Q0 -26 30 14Z" fill="#6b6780"/><circle cy="-22" r="7" fill="#ece8de"/><path d="M0 -15 v14" stroke="#ece8de" stroke-width="3"/></g>
+          <text x="150" y="108" fill="#6b7592" font-family="IBM Plex Sans" font-size="12" text-anchor="middle">lampe éteinte</text>
+        </svg>
+        <h3>On voyage avec lui</h3>
+        <p>Si je suis <b>en contact</b> avec un objet quantique au moment où il se déplace (dans le noir, lampe éteinte), <b>je me déplace avec lui</b>.</p>
+        <div class="where">Appris : Grotte quantique, Sablière rouge (pierre quantique → salle aux cactus)</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Le temps d’une boucle</h2>
+    <div class="panel reveal">
+      <svg class="loopbar" viewBox="0 0 1000 190" id="loopsvg"></svg>
+      <p class="muted" style="margin:8px 0 0">Pas de compteur officiel. Une musique particulière se lance <b>environ 2 minutes avant la fin</b>. Chaque lieu a sa fenêtre idéale ; recommencer une boucle en visant directement un objectif, c’est normal.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Les tours de la Sablière noire</h2>
+    <div class="panel reveal">
+      <p class="muted" style="margin-top:0">Disposées du Soleil vers l’extérieur ; leur architecture indique leur destination. Elles s’activent quelques secondes quand la destination est alignée.</p>
+      <table>
+        <tr><th>Forme de la tour</th><th>Destination</th></tr>
+        <tr><td>Soleil</td><td><div class="with" id="t-sun"></div></td></tr>
+        <tr><td>Deux tours reliées par un pont</td><td>Une plateforme → <b>Laboratoire des Hautes Énergies</b> (Sablière rouge) · tour au plafond cassé → <b>Projet Sablière noire</b></td></tr>
+        <tr><td>Geyser / montagne</td><td><div class="with" id="t-atb"></div></td></tr>
+        <tr><td>Morceau de croûte avec un trou noir</td><td><div class="with" id="t-cra"></div></td></tr>
+        <tr><td>Tornade</td><td><div class="with" id="t-lev"></div></td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Pilotage & outils</h2>
+    <div class="grid grid-2">
+      <div class="panel reveal"><h3>🚀 Le vaisseau</h3><ul class="tips">
+        <li>Pilotage <b>physique</b>, pas arcade : tout le monde s’écrase au début.</li>
+        <li><b>Verrouiller la cible</b> sur l’astre visé.</li>
+        <li><b>Égaliser la vitesse</b> (Match Velocity) en approche pour annuler la vitesse relative.</li>
+        <li>Manette conseillée (sticks analogiques = pilotage plus fin).</li>
+      </ul></div>
+      <div class="panel reveal"><h3>📡 L’ondulateur (signaloscope)</h3><ul class="tips">
+        <li>Choisir la bonne fréquence (ex. <b>Fluctuations quantiques</b>).</li>
+        <li><b>Tourner lentement</b> sur soi-même : plus le signal est dans l’axe, plus les parenthèses se resserrent et plus le son est fort.</li>
+        <li>Centrer, avancer un peu, recommencer.</li>
+        <li>Penser à lever / baisser les yeux : le signal peut venir d’en haut ou d’en bas.</li>
+      </ul></div>
+      <div class="panel reveal"><h3>📖 Le journal de bord</h3><ul class="tips">
+        <li>Mode <b>Rumeurs</b> : les cartes = lieux / infos découverts, les traits = liens entre elles.</li>
+        <li>Le vert ne veut <b>pas</b> dire « piste conseillée ».</li>
+        <li>« <b>Il reste encore des choses à découvrir ici</b> » = le lieu n’a pas tout livré.</li>
+        <li>Carte avec <b>?</b> au lieu d’une image = info principale du lieu pas encore obtenue.</li>
+        <li>Le lore lu est <b>conservé</b> même après une mort ou un rechargement.</li>
+        <li>Tout le journal est consultable dans ce carnet : <a href="journal.html">page Journal</a>.</li>
+      </ul></div>
+      <div class="panel reveal"><h3>🐟 Coelacanthes (Sombronces)</h3><ul class="tips">
+        <li>Ils réagissent au <b>bruit des propulseurs</b>.</li>
+        <li>S’orienter <b>avant</b> d’entrer dans leur zone, petite poussée, puis <b>moteurs coupés</b>.</li>
+        <li>Près d’eux : ne plus corriger la trajectoire, laisser dériver.</li>
+        <li>Un coelacanthe pile devant : pas de grand virage, couper et laisser passer.</li>
+      </ul></div>
+      <div class="panel reveal"><h3>🧘 Méditer</h3><ul class="tips">
+        <li>Appris auprès de Gabbro : depuis le menu pause, <b>méditer jusqu’à la boucle suivante</b>.</li>
+        <li>Pratique pour recommencer une boucle tout de suite et viser directement un lieu « à faire tôt ».</li>
+      </ul></div>
+      <div class="panel reveal"><h3>🌪️ Tornades de Léviathe</h3><ul class="tips">
+        <li>La grande tornade ne se traverse pas par le côté.</li>
+        <li>Monter hors de l’atmosphère, la placer <b>pile sous le vaisseau</b>, annuler la vitesse latérale, se laisser <b>tomber à la verticale</b>.</li>
+      </ul></div>
+      <div class="panel reveal"><h3>🪨 Cravité</h3><ul class="tips">
+        <li>Elle s’effondre pendant la boucle : y aller <b>tôt</b>.</li>
+        <li>L’Observatoire Sud se rejoint par l’<b>intérieur</b> (canon gravitationnel → cristaux).</li>
+        <li>Le trou noir mène à la <b>station du trou blanc</b> ; on en revient par sa tour de distorsion.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Maximes du voyageur</h2>
+    <div class="reveal">
+      <p class="maxim">« Si un endroit semble impossible, demande-toi “qu’est-ce que je n’ai pas encore appris ?” plutôt que “comment faire ?”. »</p>
+      <p class="maxim">« Quand une piste demande une idée que tu n’as pas encore, va en explorer une autre. »</p>
+      <p class="maxim">« Les réponses sont très souvent sur une autre planète. »</p>
+      <p class="maxim">« Le lore est souvent la progression. »</p>
+    </div>
+  </section>
+</div>
+<script src="assets/data.js"></script>
+<script src="assets/common.js"></script>
+<script>
+(function () {
+  const { planetSVG } = OWUI;
+  const w = (id, txt) => `${planetSVG(id, 30)}<b>${txt}</b>`;
+  document.getElementById("t-sun").innerHTML = w("soleil", "Station solaire");
+  document.getElementById("t-atb").innerHTML = w("atrebois", "Âtrebois");
+  document.getElementById("t-cra").innerHTML = w("cravite", "Cravité");
+  document.getElementById("t-lev").innerHTML = w("leviathe", "Léviathe");
+
+  // Frise d'une boucle (22 min)
+  const X = m => 40 + m / 22 * 920;
+  const marks = [
+    { a: 0,  b: 6,  y: 40,  c: "#e3a15e", t: "Sablière rouge : grottes ouvertes → y aller tôt" },
+    { a: 0,  b: 8,  y: 70,  c: "#9a8ab8", t: "Cravité : moins effondrée → y aller tôt" },
+    { a: 5,  b: 16, y: 100, c: "#8c8698", t: "Sablière noire : les tours émergent" },
+    { a: 7.83, b: 18, y: 130, c: "#ff8a3d", t: "Projet Sablière noire : à partir de ~7 min 50" },
+  ];
+  let s = `<defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#ffd36b"/><stop offset=".85" stop-color="#ff8a3d"/><stop offset="1" stop-color="#ff3d3d"/></linearGradient></defs>
+    <rect x="40" y="10" width="920" height="8" rx="4" fill="url(#lg)"/>`;
+  for (let m = 0; m <= 22; m += 2) s += `<text x="${X(m)}" y="${m % 2 ? 0 : 172}" fill="#6b7592" font-size="12" text-anchor="middle" font-family="Special Elite">${m}′</text><line x1="${X(m)}" x2="${X(m)}" y1="18" y2="156" stroke="rgba(160,180,255,.08)"/>`;
+  marks.forEach(k => s += `<rect x="${X(k.a)}" y="${k.y - 12}" width="${X(k.b) - X(k.a)}" height="16" rx="8" fill="${k.c}" opacity=".35"/><text x="${X(k.a) + 10}" y="${k.y + 1}" fill="#ece8de" font-size="13" font-family="IBM Plex Sans">${k.t}</text>`);
+  s += `<rect x="${X(20)}" y="26" width="${X(22) - X(20)}" height="130" fill="#ff3d3d" opacity=".12"/><text x="${X(21)}" y="150" fill="#ff7a7a" font-family="Caveat" font-size="20" text-anchor="middle">♪ musique</text>`;
+  document.getElementById("loopsvg").innerHTML = s;
+})();
+</script>
+</body>
+</html>

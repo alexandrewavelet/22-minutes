@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Journal du vaisseau — Outer Wilds</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .intro { padding-top: 48px; max-width: 760px; }
+  .bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 26px; position: sticky; top: 58px; z-index: 10; padding: 12px 0; background: linear-gradient(to bottom, rgba(5,7,15,.95), rgba(5,7,15,.75)); backdrop-filter: blur(6px); }
+  .bar input { flex: 1; min-width: 200px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line-strong); background: rgba(255,255,255,.04); color: var(--ink); font: inherit; }
+  .bar input:focus { outline: none; border-color: var(--ember); }
+  .tabs { display: flex; gap: 4px; }
+  .tabs button.on { background: var(--ember-soft); color: var(--ember); border-color: var(--ember); }
+  .astro { margin-top: 44px; }
+  .astro h2 a { color: inherit; }
+  .astro h2 svg { flex: none; }
+  .entry { break-inside: avoid; }
+  .entry.child { margin-left: 22px; border-left: 2px solid var(--line-strong); }
+  .entry h3 { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; flex-wrap: wrap; font-size: 17px; margin: 0; }
+  .feed li { padding-left: 64px; }
+  .feed .where { display: inline-flex; align-items: center; gap: 6px; font-style: normal; font-weight: 600; color: var(--ink); margin-right: 6px; }
+  .feed .where svg { vertical-align: middle; }
+  mark { background: rgba(255,138,61,.35); color: inherit; border-radius: 3px; padding: 0 2px; }
+  .empty { color: var(--muted); padding: 30px 0; text-align: center; font-family: var(--font-hand); font-size: 24px; }
+  .legend2 { display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px; color: var(--muted); margin-top: 10px; }
+</style>
+</head>
+<body data-page="journal">
+<div class="page">
+  <section class="intro" style="margin-top:0">
+    <div class="eyebrow">Ordinateur de bord · mode Rumeurs</div>
+    <h1>Journal du vaisseau</h1>
+    <p class="muted" style="font-size:18px" id="lead"></p>
+    <div class="legend2"><span class="ls ls-done">Exploré</span><span class="ls ls-more">Il reste des choses à découvrir</span><span class="ls ls-rumor">? Rumeur</span><span><span class="new">nouveau</span> pas encore lu dans le jeu</span><span><i>Italique</i> = rumeur entendue ou lue ailleurs</span></div>
+  </section>
+  <div class="bar">
+    <input id="q" type="search" placeholder="Chercher dans le journal… (ex. : Feldspath, distorsion, cœlacanthe)">
+    <div class="tabs"><button class="btn on" data-v="lieux">Par lieu</button><button class="btn" data-v="fil">Fil chronologique</button></div>
+  </div>
+  <div id="out"></div>
+</div>
+<script src="assets/data.js"></script>
+<script src="assets/journal.js"></script>
+<script src="assets/common.js"></script>
+<script>
+(function () {
+  const J = window.OW_JOURNAL, U = OWUI, { esc, planetSVG, ASTRO, LOG_STATE } = U;
+  const out = document.getElementById("out"), q = document.getElementById("q");
+  if (!J) { out.innerHTML = `<p class="empty">Aucun journal extrait. Lancer .claude/extract-journal.ps1</p>`; return; }
+  const unread = U.allFacts().filter(f => f.unread).length;
+  document.getElementById("lead").innerHTML = `Les <b>${J.meta.factCount}</b> notes débloquées dans ma partie, réparties sur <b>${J.entries.length}</b> lieux, telles qu’elles apparaissent dans l’ordinateur de bord. Extraites de la sauvegarde du ${esc(J.meta.saveDate.replace(" ", " à "))}, après ${J.meta.loopCount} boucles. ${unread ? `<b style="color:var(--ember)">${unread} notes pas encore lues</b> dans le jeu.` : ""}`;
+
+  let view = "lieux";
+  const hl = (s, re) => re ? esc(s).replace(re, m => `<mark>${m}</mark>`) : esc(s);
+  const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+
+  function render() {
+    const term = q.value.trim();
+    const re = term ? new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi") : null;
+    const match = (txt) => !term || norm(txt).includes(norm(term));
+    if (view === "fil") {
+      const fs = U.allFacts().filter(f => match(f.text) || match(f.entry.name));
+      out.innerHTML = fs.length ? `<div class="panel" style="margin-top:20px"><ul class="logfacts feed">${fs.map(f => {
+        const a = ASTRO[f.entry.astro] || ["", "", ""];
+        return `<li class="${f.rumor ? "rumor" : "explore"}"><span class="n">#${f.order}</span>${f.unread ? `<span class="new">nouveau</span>` : ""}<span class="where">${planetSVG(a[2], 18)}${esc(f.entry.name)}</span>${hl(f.text, re)}</li>`;
+      }).join("")}</ul></div>` : `<p class="empty">Rien trouvé…</p>`;
+      return;
+    }
+    let html = "";
+    Object.entries(ASTRO).forEach(([astro, a]) => {
+      const es = J.entries.filter(e => e.astro === astro).filter(e => match(e.name) || e.facts.some(f => match(f.text)));
+      if (!es.length) return;
+      const pl = U.planet(a[0]);
+      html += `<section class="astro"><h2>${planetSVG(a[2], 34)}<a href="${pl.page}">${esc(a[1])}</a></h2><div class="grid grid-2">` +
+        es.map(e => `<article class="panel entry ${e.parent ? "child" : ""}">
+          <h3><span>${esc(e.name)}</span><span class="ls ls-${e.state}">${LOG_STATE[e.state]}</span></h3>
+          <ul class="logfacts">${e.facts.filter(f => !term || match(f.text) || match(e.name)).map(f => `<li class="${f.rumor ? "rumor" : "explore"}"><span class="n">#${f.order}</span>${f.unread ? `<span class="new">nouveau</span>` : ""}${hl(f.text, re)}</li>`).join("")}</ul>
+        </article>`).join("") + `</div></section>`;
+    });
+    out.innerHTML = html || `<p class="empty">Rien trouvé…</p>`;
+  }
+  q.addEventListener("input", render);
+  document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => {
+    view = b.dataset.v; document.querySelectorAll(".tabs button").forEach(x => x.classList.toggle("on", x === b)); render();
+  });
+  render();
+})();
+</script>
+</body>
+</html>

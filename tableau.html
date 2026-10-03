@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tableau d’enquête — Outer Wilds</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  body { overflow: hidden; height: 100vh; display: flex; flex-direction: column; }
+  .toolbar { position: relative; z-index: 20; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 10px 20px; border-bottom: 1px solid var(--line); background: rgba(5,7,15,.75); backdrop-filter: blur(8px); }
+  .toolbar h1 { font-size: 20px; margin: 0 12px 0 0; letter-spacing: .1em; }
+  .toolbar .filters { display: flex; gap: 6px; flex-wrap: wrap; }
+  .toolbar .filters label { cursor: pointer; user-select: none; }
+  .toolbar .filters input { display: none; }
+  .toolbar .filters input:not(:checked) + .pill { opacity: .35; text-decoration: line-through; }
+  .toolbar .spacer { flex: 1; }
+  .toolbar .zoom { display: flex; gap: 4px; }
+  .toolbar .zoom button { width: 34px; height: 34px; padding: 0; justify-content: center; font-size: 18px; }
+  .toolbar .yarns { display: flex; gap: 12px; font-size: 12px; color: var(--muted); }
+  .toolbar .yarns i { display: inline-block; width: 22px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: 5px; }
+
+  .viewport { position: relative; flex: 1; overflow: hidden; z-index: 1; touch-action: none; cursor: grab;
+    border: 14px solid #5a3a22; border-image: linear-gradient(135deg, #7a5233, #4a2e1a 40%, #6b452a 60%, #3e2615) 1;
+    box-shadow: inset 0 0 60px rgba(0,0,0,.6); }
+  .viewport.panning { cursor: grabbing; }
+  .board { position: absolute; left: 0; top: 0; width: 2700px; height: 2050px; transform-origin: 0 0;
+    background-color: #b4875a;
+    background-image:
+      radial-gradient(ellipse at center, rgba(0,0,0,0) 50%, rgba(40,20,5,.35) 100%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .2  0 0 0 0 .08  0 0 0 .55 0'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>"),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='90' height='90'><circle cx='20' cy='30' r='3' fill='%23825a34' opacity='.5'/><circle cx='70' cy='60' r='2' fill='%23d9b285' opacity='.5'/><circle cx='50' cy='15' r='1.5' fill='%236d4526' opacity='.6'/><circle cx='10' cy='75' r='2.5' fill='%23cfa577' opacity='.4'/></svg>");
+  }
+
+  .zone { position: absolute; font-family: var(--font-hand); font-size: 34px; color: #2a1a0c; background: #f3ead2; padding: 2px 18px 4px; box-shadow: 0 3px 8px rgba(0,0,0,.35); transform: rotate(-2deg); white-space: nowrap; pointer-events: none; }
+  .zone::before, .zone::after { content: ""; position: absolute; top: -8px; width: 46px; height: 18px; background: rgba(255,255,230,.55); box-shadow: 0 1px 2px rgba(0,0,0,.15); }
+  .zone::before { left: -14px; transform: rotate(-30deg); } .zone::after { right: -14px; transform: rotate(25deg); }
+
+  .card { position: absolute; width: 210px; background: #fbf8f0; padding: 10px 10px 12px; box-shadow: 0 8px 18px rgba(0,0,0,.4), 0 1px 3px rgba(0,0,0,.3); cursor: pointer; transform: rotate(var(--rot)); transition: box-shadow .2s, opacity .3s, filter .3s; user-select: none; touch-action: none; }
+  .card:hover, .card.dragging { box-shadow: 0 18px 34px rgba(0,0,0,.5); z-index: 3; }
+  .card.dragging { cursor: grabbing; transform: rotate(0deg) scale(1.03); }
+  .card .photo { height: 96px; background: radial-gradient(ellipse at 30% 30%, #1c2547, #070a16); display: grid; place-items: center; overflow: hidden; position: relative; }
+  .card .photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(255,255,255,.12), transparent 40%); }
+  .card .photo .st { position: absolute; top: 6px; left: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--c); box-shadow: 0 0 8px var(--c); }
+  .card h4 { font-family: var(--font-hand); font-size: 25px; line-height: 1.02; color: #1e1a14; margin: 8px 2px 4px; font-weight: 700; }
+  .card p { font-family: var(--font-type); font-size: 11.5px; line-height: 1.4; color: #3b352b; margin: 0 2px; }
+  .card .meta { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-family: var(--font-type); font-size: 10.5px; color: #8a7f6c; }
+  .stamp { position: absolute; right: 10px; top: 76px; transform: rotate(-12deg); font-family: var(--font-type); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--c); border: 2px solid var(--c); padding: 1px 6px; border-radius: 4px; background: rgba(251,248,240,.85); opacity: .92; mix-blend-mode: multiply; }
+  .card.current { outline: 3px solid rgba(255,138,61,.0); animation: glowc 2.4s ease-in-out infinite; }
+  @keyframes glowc { 50% { box-shadow: 0 0 0 6px rgba(255,138,61,.55), 0 18px 34px rgba(0,0,0,.5); } }
+  .card.dim, .note.dim { opacity: .25; filter: grayscale(.8); }
+  .board.focus .card:not(.lit), .board.focus .note:not(.lit) { opacity: .45; }
+
+  .note { position: absolute; width: 170px; padding: 22px 14px 18px; font-family: var(--font-hand); font-size: 22px; line-height: 1.12; color: #2b2418; box-shadow: 0 8px 16px rgba(0,0,0,.35); transform: rotate(var(--rot)); cursor: grab; user-select: none; touch-action: none; transition: opacity .3s; }
+  .note.yellow { background: #fbe98c; } .note.pink { background: #f9b9c8; } .note.blue { background: #b9d8f9; } .note.green { background: #c3eeb0; }
+
+  svg.strings { position: absolute; left: 0; top: 0; width: 2700px; height: 2050px; pointer-events: none; z-index: 2; overflow: visible; }
+  svg.strings path { fill: none; stroke-linecap: round; transition: opacity .3s, stroke-width .3s; }
+  svg.strings path.shadow { stroke: rgba(0,0,0,.28); stroke-width: 3; }
+  svg.strings path.clue { stroke: #c4222b; stroke-width: 2.6; }
+  svg.strings path.rule { stroke: #7a4fd6; stroke-width: 2.6; }
+  svg.strings path.hypo { stroke: #2b6fd6; stroke-width: 2.4; stroke-dasharray: 7 6; }
+  .board.focus svg.strings path:not(.lit) { opacity: .15; }
+  .board.focus svg.strings path.lit:not(.shadow) { stroke-width: 4; }
+  .tags { position: absolute; inset: 0; pointer-events: none; z-index: 4; }
+  .tag { position: absolute; transform: translate(-50%, -50%) rotate(var(--rot)); background: #fffdf6; color: #3a2a1a; font-family: var(--font-hand); font-size: 17px; line-height: 1; padding: 3px 8px 4px; box-shadow: 0 2px 5px rgba(0,0,0,.3); white-space: nowrap; transition: opacity .3s; }
+  .tag.hypo { color: #1f4f9c; } .tag.rule { color: #5a36a8; }
+  .board.focus .tag:not(.lit) { opacity: .15; }
+  .pins { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+  .pin { position: absolute; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff 0 8%, var(--pc) 30%, #000 140%); box-shadow: 2px 4px 4px rgba(0,0,0,.45); }
+
+  /* Tiroir de détail */
+  .drawer { position: fixed; right: 0; top: 0; bottom: 0; width: min(420px, 100%); z-index: 60; background: var(--panel-solid); border-left: 1px solid var(--line-strong); box-shadow: -20px 0 50px rgba(0,0,0,.5); transform: translateX(105%); transition: transform .35s cubic-bezier(.2,.8,.2,1); overflow-y: auto; padding: 26px 24px 40px; }
+  .drawer.open { transform: none; }
+  .drawer .close { position: absolute; right: 16px; top: 14px; background: none; border: 0; color: var(--muted); font-size: 26px; cursor: pointer; }
+  .drawer .pic { height: 150px; border-radius: 12px; background: radial-gradient(ellipse at 30% 30%, #1c2547, #070a16); display: grid; place-items: center; margin-bottom: 16px; }
+  .drawer h3 { font-size: 24px; margin: 6px 0 10px; }
+  .drawer ul { padding-left: 18px; } .drawer li { margin: 6px 0; color: #d6d3ca; }
+  .drawer .links a { display: block; padding: 6px 0; border-top: 1px solid var(--line); font-size: 14px; }
+
+  .help { transition: opacity .6s; position: absolute; left: 24px; bottom: 22px; z-index: 6; font-family: var(--font-hand); font-size: 20px; color: #2a1a0c; background: #fffdf6; padding: 6px 12px; box-shadow: 0 3px 8px rgba(0,0,0,.35); transform: rotate(1deg); pointer-events: none; max-width: 80vw; }
+  @media (max-width: 700px) { .toolbar .yarns { display: none; } .toolbar h1 { display: none; } }
+</style>
+</head>
+<body data-page="tableau" data-nofooter="1">
+<div class="toolbar">
+  <h1>Tableau d’enquête</h1>
+  <div class="filters" id="filters"></div>
+  <div class="spacer"></div>
+  <div class="yarns"><span><i style="background:#c4222b"></i>piste</span><span><i style="background:#7a4fd6"></i>règle apprise</span><span><i style="background:repeating-linear-gradient(90deg,#2b6fd6 0 6px,transparent 6px 10px)"></i>hypothèse</span></div>
+  <div class="zoom">
+    <button class="btn" id="zout" title="Dézoomer">−</button>
+    <button class="btn" id="zfit" title="Tout voir">⤢</button>
+    <button class="btn" id="zin" title="Zoomer">+</button>
+    <button class="btn" id="reset" title="Remettre les cartes à leur place" style="width:auto;padding:0 10px;font-size:12px">Ranger</button>
+  </div>
+</div>
+<div class="viewport" id="vp">
+  <div class="board" id="board">
+    <svg class="strings" id="strings"></svg>
+    <div class="tags" id="tags"></div>
+    <div class="pins" id="pins"></div>
+  </div>
+  <div class="help">Glisse les cartes · glisse le fond pour te déplacer · molette pour zoomer · clic = détails</div>
+</div>
+<aside class="drawer" id="drawer"><button class="close" id="dclose" aria-label="Fermer">×</button><div id="dbody"></div></aside>
+
+<script src="assets/data.js"></script>
+<script src="assets/journal.js"></script>
+<script src="assets/common.js"></script>
+<script>
+(function () {
+  const D = OW, U = OWUI, { esc, STATUS, pill, planetSVG, planet } = U;
+  const vp = document.getElementById("vp"), board = document.getElementById("board");
+  const sv = document.getElementById("strings"), tagsL = document.getElementById("tags"), pinsL = document.getElementById("pins");
+  const KEY = "ow-board-pos-v2";
+  const saved = U.lsGet(KEY) || {};
+  const hash = s => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) | 0, 7);
+  const rot = id => ((Math.abs(hash(id)) % 60) / 10 - 3).toFixed(1) + "deg";
+
+  /* ---------- Étiquettes de zones (calculées depuis les positions par défaut) ---------- */
+  const zones = {};
+  D.cards.forEach(c => { const z = zones[c.zone] || (zones[c.zone] = { x: 1e9, y: 1e9 }); z.x = Math.min(z.x, c.pos.x); z.y = Math.min(z.y, c.pos.y); });
+  Object.entries(zones).forEach(([name, z]) => {
+    const el = document.createElement("div"); el.className = "zone"; el.textContent = name;
+    el.style.left = (z.x + 10) + "px"; el.style.top = (z.y - 62) + "px"; board.appendChild(el);
+  });
+
+  /* ---------- Cartes & post-its ---------- */
+  const items = {};
+  D.cards.forEach(c => {
+    const st = STATUS[c.status], el = document.createElement("div");
+    el.className = "card" + (c.status === "current" ? " current" : "");
+    el.dataset.id = c.id; el.style.setProperty("--rot", rot(c.id)); el.style.setProperty("--c", st.hex);
+    el.innerHTML = `<div class="photo"><span class="st"></span>${planetSVG(U.artFor(c), 84)}</div>
+      <span class="stamp">${esc(st.label)}</span>
+      <h4>${esc(c.title)}</h4><p>${esc(c.summary)}</p>
+      <div class="meta"><span>${esc(c.zone)}</span><span>${esc(c.hours || "")}</span></div>`;
+    board.appendChild(el);
+    items[c.id] = { el, data: c, kind: "card", w: 210, pos: { ...(saved[c.id] || c.pos) } };
+  });
+  D.notes.forEach(n => {
+    const el = document.createElement("div");
+    el.className = "note " + n.color; el.dataset.id = n.id; el.style.setProperty("--rot", rot(n.id));
+    el.textContent = n.text; board.appendChild(el);
+    items[n.id] = { el, data: n, kind: "note", w: 170, pos: { ...(saved[n.id] || n.pos) } };
+  });
+  const pinColors = ["#d42a2a", "#2a6ad4", "#e8b81c", "#2aa865", "#d42a9a"];
+  Object.values(items).forEach((it, i) => {
+    const p = document.createElement("div"); p.className = "pin"; p.style.setProperty("--pc", it.data.status === "current" ? "#ff8a3d" : pinColors[i % pinColors.length]);
+    pinsL.appendChild(p); it.pin = p;
+  });
+
+  /* ---------- Fils ---------- */
+  const links = D.links.map(l => {
+    const sh = document.createElementNS("http://www.w3.org/2000/svg", "path"); sh.setAttribute("class", "shadow");
+    const pa = document.createElementNS("http://www.w3.org/2000/svg", "path"); pa.setAttribute("class", l.kind);
+    sv.append(sh, pa);
+    let tag = null;
+    if (l.label) { tag = document.createElement("div"); tag.className = "tag " + l.kind; tag.textContent = l.label; tag.style.setProperty("--rot", rot(l.from + l.to)); tagsL.appendChild(tag); }
+    return { ...l, sh, pa, tag };
+  });
+  const pinPt = it => [it.pos.x + it.w / 2, it.pos.y + 6];
+  function layout() {
+    Object.values(items).forEach(it => {
+      it.el.style.left = it.pos.x + "px"; it.el.style.top = it.pos.y + "px";
+      const [px, py] = pinPt(it); it.pin.style.left = px + "px"; it.pin.style.top = py + "px";
+    });
+    links.forEach(l => {
+      const a = items[l.from], b = items[l.to]; if (!a || !b) return;
+      const [x1, y1] = pinPt(a), [x2, y2] = pinPt(b);
+      const dist = Math.hypot(x2 - x1, y2 - y1), sag = Math.min(90, dist * 0.12);
+      const cx = (x1 + x2) / 2, cy = (y1 + y2) / 2 + sag;
+      const d = `M${x1} ${y1} Q${cx} ${cy} ${x2} ${y2}`;
+      l.pa.setAttribute("d", d); l.sh.setAttribute("d", `M${x1 + 3} ${y1 + 5} Q${cx + 3} ${cy + 7} ${x2 + 3} ${y2 + 5}`);
+      if (l.tag) { l.tag.style.left = (0.25 * x1 + 0.5 * cx + 0.25 * x2) + "px"; l.tag.style.top = (0.25 * y1 + 0.5 * cy + 0.25 * y2) + "px"; }
+    });
+  }
+  layout();
+
+  /* ---------- Vue (zoom / déplacement) ---------- */
+  const view = { s: 1, x: 0, y: 0 };
+  const apply = () => board.style.transform = `translate(${view.x}px,${view.y}px) scale(${view.s})`;
+  function fit() {
+    const r = vp.getBoundingClientRect(), s = Math.min(r.width / 2700, r.height / 2050) * 0.98;
+    view.s = Math.max(0.2, s); view.x = (r.width - 2700 * view.s) / 2; view.y = (r.height - 2050 * view.s) / 2; apply();
+  }
+  function zoomAt(f, cx, cy) {
+    const ns = Math.min(2.2, Math.max(0.2, view.s * f)); f = ns / view.s;
+    view.x = cx - (cx - view.x) * f; view.y = cy - (cy - view.y) * f; view.s = ns; apply();
+  }
+  fit();
+  addEventListener("resize", fit);
+  vp.addEventListener("wheel", e => { e.preventDefault(); const r = vp.getBoundingClientRect(); zoomAt(e.deltaY < 0 ? 1.12 : 1 / 1.12, e.clientX - r.left, e.clientY - r.top); }, { passive: false });
+  const center = () => { const r = vp.getBoundingClientRect(); return [r.width / 2, r.height / 2]; };
+  document.getElementById("zin").onclick = () => zoomAt(1.25, ...center());
+  document.getElementById("zout").onclick = () => zoomAt(0.8, ...center());
+  document.getElementById("zfit").onclick = fit;
+  document.getElementById("reset").onclick = () => {
+    Object.values(items).forEach(it => it.pos = { ...it.data.pos });
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    layout();
+  };
+
+  /* ---------- Glisser (cartes & fond) ---------- */
+  let drag = null;
+  vp.addEventListener("pointerdown", e => {
+    if (e.button !== 0) return;
+    document.querySelector(".help").style.opacity = 0;
+    const el = e.target.closest(".card, .note");
+    if (el) {
+      const it = items[el.dataset.id];
+      drag = { type: "item", it, sx: e.clientX, sy: e.clientY, ox: it.pos.x, oy: it.pos.y, moved: false };
+      el.classList.add("dragging");
+    } else {
+      drag = { type: "pan", sx: e.clientX, sy: e.clientY, ox: view.x, oy: view.y }; vp.classList.add("panning");
+    }
+    vp.setPointerCapture(e.pointerId);
+  });
+  vp.addEventListener("pointermove", e => {
+    if (!drag) return;
+    const dx = e.clientX - drag.sx, dy = e.clientY - drag.sy;
+    if (drag.type === "pan") { view.x = drag.ox + dx; view.y = drag.oy + dy; apply(); return; }
+    if (Math.hypot(dx, dy) > 4) drag.moved = true;
+    drag.it.pos.x = Math.round(drag.ox + dx / view.s); drag.it.pos.y = Math.round(drag.oy + dy / view.s); layout();
+  });
+  vp.addEventListener("pointerup", () => {
+    if (!drag) return;
+    vp.classList.remove("panning");
+    if (drag.type === "item") {
+      drag.it.el.classList.remove("dragging");
+      if (drag.moved) { const o = {}; Object.entries(items).forEach(([k, it]) => o[k] = it.pos); U.lsSet(KEY, o); }
+      else if (drag.it.kind === "card") openDrawer(drag.it.data);
+    }
+    drag = null;
+  });
+
+  /* ---------- Survol : mettre en lumière les fils d'une carte ---------- */
+  Object.values(items).forEach(it => {
+    it.el.addEventListener("mouseenter", () => {
+      if (drag) return;
+      board.classList.add("focus"); it.el.classList.add("lit");
+      links.forEach(l => { if (l.from === it.data.id || l.to === it.data.id) {
+        l.pa.classList.add("lit"); l.sh.classList.add("lit"); l.tag && l.tag.classList.add("lit");
+        items[l.from === it.data.id ? l.to : l.from]?.el.classList.add("lit"); } });
+    });
+    it.el.addEventListener("mouseleave", () => {
+      board.classList.remove("focus");
+      board.querySelectorAll(".lit").forEach(n => n.classList.remove("lit"));
+      links.forEach(l => { l.pa.classList.remove("lit"); l.sh.classList.remove("lit"); });
+    });
+  });
+
+  /* ---------- Filtres par statut ---------- */
+  const fl = document.getElementById("filters");
+  fl.innerHTML = Object.keys(STATUS).map(k => `<label><input type="checkbox" value="${k}" checked>${pill(k)}</label>`).join("");
+  fl.addEventListener("change", () => {
+    const on = new Set([...fl.querySelectorAll("input:checked")].map(i => i.value));
+    Object.values(items).forEach(it => it.kind === "card" && it.el.classList.toggle("dim", !on.has(it.data.status)));
+  });
+
+  /* ---------- Tiroir de détail ---------- */
+  const drawer = document.getElementById("drawer"), dbody = document.getElementById("dbody");
+  function openDrawer(c) {
+    const p = planet(c.planet);
+    const rel = D.links.filter(l => l.from === c.id || l.to === c.id).map(l => {
+      const o = l.from === c.id ? l.to : l.from, oc = D.cards.find(x => x.id === o) || D.notes.find(x => x.id === o);
+      return oc ? `<a href="#" data-go="${o}">${l.kind === "hypo" ? "🔵" : l.kind === "rule" ? "🟣" : "🔴"} ${esc(oc.title || oc.text)}${l.label ? ` <span class="muted">— ${esc(l.label)}</span>` : ""}</a>` : "";
+    }).join("");
+    dbody.innerHTML = `<div class="pic">${planetSVG(U.artFor(c), 130)}</div>
+      <div class="eyebrow">${esc(c.zone)} · ${esc(c.hours || "")}</div>
+      <h3>${esc(c.title)}</h3>${pill(c.status)}
+      <p style="margin-top:14px">${esc(c.summary)}</p>
+      ${c.details.length ? `<ul>${c.details.map(d => `<li>${esc(d)}</li>`).join("")}</ul>` : ""}
+      ${c.hints.length ? `<details class="hints"><summary>Indices déjà reçus (${c.hints.length})</summary>${c.hints.map(h => `<div class="hint"><span class="lvl">niv. ${h.lvl}</span><span>${esc(h.text)}</span></div>`).join("")}</details>` : ""}
+      ${U.logBlock(c, true)}
+      ${rel ? `<div class="eyebrow" style="margin-top:22px">Fils reliés</div><div class="links">${rel}</div>` : ""}
+      <p style="margin-top:22px"><a class="btn" href="${p.page}#${c.id}">Page ${esc(p.name)} →</a></p>`;
+    drawer.classList.add("open");
+    dbody.querySelectorAll("[data-go]").forEach(a => a.onclick = ev => {
+      ev.preventDefault(); const it = items[a.dataset.go]; if (!it) return;
+      const r = vp.getBoundingClientRect(); view.s = Math.max(view.s, 0.8);
+      view.x = r.width / 2 - (it.pos.x + it.w / 2) * view.s; view.y = r.height / 2 - (it.pos.y + 80) * view.s; apply();
+      if (it.kind === "card") openDrawer(it.data);
+    });
+  }
+  document.getElementById("dclose").onclick = () => drawer.classList.remove("open");
+  addEventListener("keydown", e => { if (e.key === "Escape") drawer.classList.remove("open"); });
+
+  // Ouvrir directement une carte via #id
+  if (location.hash) { const it = items[location.hash.slice(1)]; if (it && it.kind === "card") setTimeout(() => openDrawer(it.data), 300); }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carnet de bord — Outer Wilds</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .hero { display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items: center; padding-top: 56px; position: relative; }
+  .hero p.lead { font-size: 18px; color: #cfd2db; max-width: 560px; }
+  .hero .spiral { position: absolute; right: -60px; top: -10px; opacity: .12; pointer-events: none; animation: spin 120s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .here-card { position: relative; overflow: hidden; border-color: rgba(255,138,61,.4); box-shadow: 0 0 60px rgba(255,138,61,.08) inset; }
+  .here-card .tag { font-family: var(--font-type); font-size: 12px; letter-spacing: .14em; color: var(--ember); text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+  .here-card .tag::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--ember); animation: pulse 1.6s infinite; color: var(--ember); }
+  .here-card .pl { position: absolute; right: -30px; top: -30px; opacity: .35; animation: spin 90s linear infinite; }
+  .here-card h3 { font-size: 26px; margin: 8px 0; position: relative; }
+  .here-card p { position: relative; color: #d8d6cf; }
+  .next { counter-reset: n; list-style: none; padding: 0; margin: 14px 0 0; position: relative; }
+  .next li { counter-increment: n; display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-top: 1px solid var(--line); }
+  .next li::before { content: counter(n); flex: none; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--ember); color: var(--ember); font-family: var(--font-title); font-size: 13px; display: grid; place-items: center; }
+  .next a { color: var(--ink); }
+  .next a:hover { color: var(--ember); }
+
+  .ring { width: 74px; height: 74px; }
+  .stat-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+
+  /* Système solaire */
+  .system { position: relative; padding: 10px; overflow: hidden; }
+  .system svg.map { width: 100%; height: auto; display: block; }
+  .system .orbit { fill: none; stroke: rgba(160,180,255,.13); stroke-width: 1; }
+  .system .orbit.intrus { stroke-dasharray: 4 6; }
+  .system a.pl { cursor: pointer; }
+  .system a.pl .ringst { fill: none; stroke-width: 2; opacity: .8; }
+  .system a.pl:hover .ringst { stroke-width: 3; opacity: 1; }
+  .system text { font-family: var(--font-title); font-size: 15px; fill: var(--ink); letter-spacing: .06em; text-anchor: middle; paint-order: stroke; stroke: rgba(5,7,15,.85); stroke-width: 4px; }
+  .system text.sub { font-family: var(--font-body); font-size: 11px; fill: var(--muted); letter-spacing: 0; }
+  .system .here-ring { fill: none; stroke: var(--ember); stroke-width: 2; animation: herepulse 2s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes herepulse { 0% { transform: scale(.8); opacity: 1; } 100% { transform: scale(1.7); opacity: 0; } }
+  .system .youhere { font-family: var(--font-hand); font-size: 22px; fill: var(--ember); stroke-width: 3px; }
+  #qmoon { transition: opacity .5s; cursor: help; }
+  .tip { position: absolute; pointer-events: none; background: var(--panel-solid); border: 1px solid var(--line-strong); border-radius: 12px; padding: 12px 14px; width: 260px; font-size: 14px; box-shadow: 0 20px 40px rgba(0,0,0,.5); opacity: 0; transition: opacity .2s; z-index: 5; }
+  .tip b { font-family: var(--font-title); font-size: 17px; letter-spacing: .04em; }
+  .tip .en { color: var(--faint); font-size: 12px; font-style: italic; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 10px; font-size: 13px; }
+
+  .planet-tile { display: flex; gap: 14px; align-items: center; transition: transform .25s, border-color .25s; color: var(--ink); }
+  .planet-tile:hover { transform: translateY(-3px); border-color: var(--line-strong); color: var(--ink); }
+  .planet-tile svg { flex: none; transition: transform .6s; }
+  .planet-tile:hover svg { transform: rotate(25deg) scale(1.06); }
+  .planet-tile h3 { margin: 0 0 4px; }
+  .planet-tile .count { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+  .story p { color: #d2d0c8; }
+  .story p b { color: var(--ink); }
+  .story .chap { font-family: var(--font-type); color: var(--ember); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; display: block; margin-top: 18px; }
+
+  .quick a.panel { display: block; color: var(--ink); transition: .25s; position: relative; overflow: hidden; }
+  .quick a.panel:hover { border-color: var(--ember); transform: translateY(-3px); }
+  .quick .ico { font-size: 30px; }
+  .quick h3 { margin: 8px 0 4px; }
+  .quick p { margin: 0; color: var(--muted); font-size: 14px; }
+
+  .postits { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .postit { font-family: var(--font-hand); font-size: 22px; line-height: 1.15; color: #2b2418; padding: 18px 16px 22px; background: #fbe98c; box-shadow: 0 10px 20px rgba(0,0,0,.4); transform: rotate(var(--r, -1deg)); }
+  .postit.pink { background: #f9b9c8; } .postit.blue { background: #b9d8f9; } .postit.green { background: #c3eeb0; }
+
+  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body data-page="index">
+<div class="page">
+
+  <section class="hero" style="margin-top:0">
+    <div class="spiral" id="heroSpiral"></div>
+    <div class="reveal">
+      <div class="eyebrow">Journal du voyageur · Outer Wilds</div>
+      <h1>Carnet<br>de bord</h1>
+      <p class="lead">Tout ce que j’ai vu, lu, compris (ou pas encore) dans le système solaire d’Âtrebois. Un fil par mystère, une épingle par découverte. Sans spoiler : seulement ce que j’ai trouvé moi-même.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+        <a class="btn primary" href="tableau.html">📌 Tableau d’enquête</a>
+        <a class="btn" href="chronologie.html">Chronologie</a>
+        <a class="btn" href="savoir.html">Ce que je sais</a>
+      </div>
+    </div>
+    <div class="panel here-card reveal" id="here"></div>
+  </section>
+
+  <section>
+    <div class="grid grid-4" id="stats"></div>
+    <div class="grid grid-4" id="savestats" style="margin-top:18px"></div>
+  </section>
+
+  <section id="systeme">
+    <h2>Le système solaire</h2>
+    <div class="panel system reveal">
+      <div class="tip" id="tip"></div>
+      <svg class="map" id="map" viewBox="0 0 1000 600"></svg>
+      <div class="legend" id="legend"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Questions ouvertes</h2>
+    <div class="postits reveal" id="postits"></div>
+  </section>
+
+  <section>
+    <h2>L’aventure jusqu’ici</h2>
+    <div class="panel story reveal" id="story"></div>
+  </section>
+
+  <section>
+    <h2>Les planètes</h2>
+    <div class="grid grid-3" id="planets"></div>
+  </section>
+
+  <section class="quick">
+    <h2>Accès rapides</h2>
+    <div class="grid grid-3">
+      <a class="panel reveal" href="tableau.html"><div class="ico">📌</div><h3>Tableau d’enquête</h3><p>Le mur en liège : toutes les découvertes épinglées et reliées par des fils rouges. Déplaçable à la souris.</p></a>
+      <a class="panel reveal" href="journal.html"><div class="ico">📓</div><h3>Journal du vaisseau</h3><p>Les 166 notes de ma sauvegarde, en français : par lieu ou dans l’ordre de découverte, avec recherche.</p></a>
+      <a class="panel reveal" href="chronologie.html"><div class="ico">🕰️</div><h3>Chronologie</h3><p>Le récit de l’aventure, étape par étape, heure de jeu par heure de jeu.</p></a>
+      <a class="panel reveal" href="savoir.html"><div class="ico">🔭</div><h3>Ce que je sais</h3><p>Règles quantiques, astuces de pilotage, timings de la boucle, correspondance des tours…</p></a>
+    </div>
+  </section>
+</div>
+
+<script src="assets/data.js"></script>
+<script src="assets/journal.js"></script>
+<script src="assets/common.js"></script>
+<script>
+(function () {
+  const D = OW, U = OWUI, { esc, STATUS, pill, planetSVG, planet } = U;
+
+  document.getElementById("heroSpiral").innerHTML = U.nomaiSpiral(460, "#9db8ff");
+
+  /* --- Tu es ici --- */
+  const now = D.now, np = planet(now.planet);
+  document.getElementById("here").innerHTML = `
+    <div class="pl">${planetSVG(now.planet, 220)}</div>
+    <div class="tag">Tu es ici · ${esc(np.name)}</div>
+    <h3>${esc(now.title)}</h3>
+    <p>${esc(now.text)}</p>
+    <div class="eyebrow" style="margin-top:14px;position:relative">Prochaines pistes</div>
+    <ol class="next">${now.nextSteps.map(s => `<li><a href="${planet(s.planet).page}"><b>${esc(planet(s.planet).name)}</b> — ${esc(s.text)}</a></li>`).join("")}</ol>`;
+
+  /* --- Stats --- */
+  const cards = D.cards;
+  const done = cards.filter(c => c.status === "done").length;
+  const open = cards.filter(c => c.status !== "done").length;
+  const ring = (pct) => {
+    const r = 30, C = 2 * Math.PI * r;
+    return `<svg class="ring" viewBox="0 0 74 74"><circle cx="37" cy="37" r="${r}" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="7"/>
+      <circle cx="37" cy="37" r="${r}" fill="none" stroke="var(--ember)" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C * pct / 100} ${C}" transform="rotate(-90 37 37)"/></svg>`;
+  };
+  document.getElementById("stats").innerHTML = `
+    <div class="panel stat reveal"><div class="k">Temps de jeu</div><div class="v">${esc(D.meta.playtime)}</div><div class="s" title="${esc(D.meta.playtimeNote)}">Steam : 14 h · fin estimée ${esc(D.meta.estimateTotal)}</div></div>
+    <div class="panel stat reveal"><div class="stat-row"><div><div class="k">Progression</div><div class="v">≈ ${D.meta.progress} %</div><div class="s" title="${esc(D.meta.estimateNote || "")}">des notes du journal (jeu de base)</div></div>${ring(D.meta.progress)}</div></div>
+    <div class="panel stat reveal"><div class="k">Lieux explorés</div><div class="v">${done}<span class="muted" style="font-size:20px"> / ${cards.length}</span></div><div class="s">épinglés sur le tableau</div></div>
+    <div class="panel stat reveal"><div class="k">Pistes ouvertes</div><div class="v">${open}</div><div class="s">${cards.filter(c => c.status === "blocked").length} bloquées · ${cards.filter(c => c.status === "partial").length} incomplètes</div></div>`;
+
+  /* --- Stats de la sauvegarde --- */
+  const S = D.save, J = window.OW_JOURNAL;
+  const unread = J ? J.entries.reduce((a, e) => a + e.facts.filter(f => f.unread).length, 0) : 0;
+  document.getElementById("savestats").innerHTML = `
+    <div class="panel stat reveal"><div class="k">Boucles vécues</div><div class="v">${S.loops}</div><div class="s">dont ${S.fullLoops} jusqu’à la supernova</div></div>
+    <div class="panel stat reveal"><div class="k">Notes du journal</div><div class="v">${J ? J.meta.factCount : S.facts}</div><div class="s"><a href="journal.html">${J ? J.entries.length : S.entries} lieux · ${unread} non lues →</a></div></div>
+    <div class="panel stat reveal"><div class="k">Voyageurs rencontrés</div><div class="v">${S.travelers.length}</div><div class="s">${S.travelers.join(", ")}</div></div>
+    <div class="panel stat reveal"><div class="k">Guimauves</div><div class="v">🔥 ${S.burnedMarshmallows}</div><div class="s">brûlées · ${S.perfectMarshmallows} parfaite${S.perfectMarshmallows > 1 ? "s" : ""}… à travailler</div></div>`;
+
+  /* --- Post-its --- */
+  document.getElementById("postits").innerHTML = D.notes.map((n, i) =>
+    `<div class="postit ${n.color}" style="--r:${(i % 2 ? 1.5 : -1.5) + (i % 3 - 1) * .6}deg">${esc(n.text)}</div>`).join("");
+
+  /* --- Récit --- */
+  document.getElementById("story").innerHTML = D.timeline.map(t => `
+    <span class="chap">${esc(t.hours)} · ${esc(t.title)}${t.current ? " · en cours" : ""}</span>
+    <p>${t.items.map(esc).join(" ")}</p>`).join("") +
+    `<p style="margin-top:20px"><a class="btn" href="chronologie.html">Lire la chronologie détaillée →</a></p>`;
+
+  /* --- Tuiles planètes --- */
+  document.getElementById("planets").innerHTML = D.planets.map(p => {
+    const cs = cards.filter(c => c.planet === p.id), d = cs.filter(c => c.status === "done").length;
+    return `<a class="panel planet-tile reveal" href="${p.page}">${planetSVG(p.id === "sablieres" ? "sablieres" : p.id, 84)}
+      <div><h3>${esc(p.name)} <span class="muted" style="font-size:13px">${esc(p.sub)}</span></h3>${pill(p.status)}
+      <div class="count">${d} / ${cs.length} lieux explorés</div></div></a>`;
+  }).join("");
+
+  /* --- Carte du système --- */
+  const svg = document.getElementById("map"), tip = document.getElementById("tip");
+  const CX = 500, CY = 300, K = 0.42;
+  const bodies = [
+    { id: "sablieres",  r: 95,  a: 0.6, sp: 0.00030, s: 62 },
+    { id: "atrebois",   r: 170, a: 2.4, sp: 0.00020, s: 56, moon: true },
+    { id: "cravite",    r: 245, a: 4.0, sp: 0.00014, s: 54 },
+    { id: "leviathe",   r: 330, a: 5.5, sp: 0.00010, s: 70 },
+    { id: "sombronces", r: 425, a: 1.5, sp: 0.00007, s: 66 }
+  ];
+  let h = `<defs><radialGradient id="glow"><stop offset="0" stop-color="#ffb35a" stop-opacity=".5"/><stop offset="1" stop-color="#ffb35a" stop-opacity="0"/></radialGradient></defs>`;
+  bodies.forEach(b => h += `<ellipse class="orbit" cx="${CX}" cy="${CY}" rx="${b.r}" ry="${b.r * K}"/>`);
+  h += `<ellipse class="orbit intrus" cx="${CX + 60}" cy="${CY + 10}" rx="440" ry="110" transform="rotate(-14 ${CX} ${CY})"/>`;
+  h += `<circle cx="${CX}" cy="${CY}" r="120" fill="url(#glow)"/><g transform="translate(${CX - 45},${CY - 45})">${planetSVG("soleil", 90)}</g>`;
+  const node = (id, s, label, sub) => {
+    const p = planet(id), st = STATUS[p.status];
+    return `<a class="pl" href="${p.page}" data-id="${id}"><g class="body" data-id="${id}">
+      ${p.status === "current" ? `<circle class="here-ring" r="${s / 2 + 4}"/>` : ""}
+      <circle class="ringst" r="${s / 2 + 6}" stroke="${st.hex}"/>
+      <g transform="translate(${-s / 2},${-s / 2})">${planetSVG(id, s)}</g>
+      <text y="${s / 2 + 22}">${esc(label)}</text>${sub ? `<text class="sub" y="${s / 2 + 37}">${esc(sub)}</text>` : ""}
+      ${p.status === "current" ? `<text class="youhere" x="${s / 2 + 40}" y="${-s / 2 + 6}">← tu es ici</text>` : ""}
+    </g></a>`;
+  };
+  bodies.forEach(b => { const p = planet(b.id); h += node(b.id, b.s, p.name, p.sub); });
+  h += `<g id="moon">${planetSVG("lune", 20)}</g>`;
+  h += `<g transform="translate(${CX + 62},${CY - 52})">${node("station-solaire", 30, "Station solaire", "")}</g>`;
+  h += node("intrus", 46, "L’Intrus", "");
+  h += `<a class="pl" href="${planet("lune-quantique").page}" data-id="lune-quantique"><g id="qmoon" class="body" data-id="lune-quantique">
+          <circle class="ringst" r="21" stroke="${STATUS[planet("lune-quantique").status].hex}"/>
+          <g transform="translate(-18,-18)">${planetSVG("lune-quantique", 36)}</g>
+          <text class="sub" y="36">Lune quantique</text></g></a>`;
+  svg.innerHTML = h;
+
+  const els = {}; svg.querySelectorAll("g.body").forEach(g => els[g.dataset.id] = g);
+  const moon = svg.querySelector("#moon"), qm = svg.querySelector("#qmoon");
+  let hover = false, last = performance.now(), ia = 2.0, qHost = "leviathe", qObserved = false;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const pos = {};
+  function place(t) {
+    const dt = t - last; last = t;
+    if (!hover && !reduce) { bodies.forEach(b => b.a += b.sp * dt); ia += 0.00005 * dt; }
+    bodies.forEach(b => {
+      const x = CX + Math.cos(b.a) * b.r, y = CY + Math.sin(b.a) * b.r * K;
+      pos[b.id] = [x, y]; els[b.id].setAttribute("transform", `translate(${x},${y})`);
+      if (b.moon) moon.setAttribute("transform", `translate(${x + Math.cos(t / 900) * 44 - 10},${y + Math.sin(t / 900) * 18 - 10})`);
+    });
+    // Intrus : ellipse inclinée
+    const rot = -14 * Math.PI / 180, ex = 60 + Math.cos(ia) * 440, ey = 10 + Math.sin(ia) * 110;
+    const ix = CX + ex * Math.cos(rot) - ey * Math.sin(rot), iy = CY + ex * Math.sin(rot) + ey * Math.cos(rot);
+    pos.intrus = [ix, iy]; els.intrus.setAttribute("transform", `translate(${ix},${iy})`);
+    const hp = pos[qHost]; qm.setAttribute("transform", `translate(${hp[0] + 46},${hp[1] - 34})`);
+    requestAnimationFrame(place);
+  }
+  requestAnimationFrame(place);
+
+  // La Lune quantique change de place… quand personne ne la regarde
+  const hosts = ["sablieres", "atrebois", "cravite", "leviathe", "sombronces"];
+  setInterval(() => {
+    if (qObserved || reduce) return;
+    qm.style.opacity = 0;
+    setTimeout(() => { qHost = hosts.filter(x => x !== qHost)[Math.floor(Math.random() * 4)]; qm.style.opacity = 1; }, 500);
+  }, 3800);
+
+  svg.addEventListener("mouseenter", () => hover = true);
+  svg.addEventListener("mouseleave", () => { hover = false; tip.style.opacity = 0; });
+  svg.querySelectorAll("a.pl").forEach(a => {
+    const p = planet(a.dataset.id);
+    a.addEventListener("mouseenter", () => {
+      if (p.id === "lune-quantique") qObserved = true;
+      const cs = cards.filter(c => c.planet === p.id);
+      tip.innerHTML = `<b>${esc(p.name)}</b> <span class="en">${esc(p.en)}</span><div style="margin:6px 0">${pill(p.status)}</div>
+        <div style="color:#cfd2db">${esc(p.blurb)}</div>
+        ${p.id === "lune-quantique" ? `<div class="hand" style="color:var(--nomai-violet);font-size:19px;margin-top:6px">Observée : elle ne bouge plus.</div>` : ""}
+        <div class="muted" style="font-size:12px;margin-top:6px">${cs.filter(c => c.status === "done").length}/${cs.length} lieux · clic pour ouvrir</div>`;
+      tip.style.opacity = 1;
+    });
+    a.addEventListener("mousemove", e => {
+      const r = svg.parentElement.getBoundingClientRect();
+      let x = e.clientX - r.left + 16, y = e.clientY - r.top + 16;
+      if (x + 270 > r.width) x -= 300;
+      tip.style.left = x + "px"; tip.style.top = y + "px";
+    });
+    a.addEventListener("mouseleave", () => { tip.style.opacity = 0; if (p.id === "lune-quantique") qObserved = false; });
+  });
+
+  document.getElementById("legend").innerHTML = Object.keys(STATUS).map(k => pill(k)).join("") +
+    `<span class="muted" style="font-size:12px">Survole une planète pour l’arrêter · la Lune quantique ne bouge que si tu ne la regardes pas 👀</span>`;
+})();
+</script>
+</body>
+</html>
