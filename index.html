@@ -155,7 +155,7 @@
       <circle cx="37" cy="37" r="${r}" fill="none" stroke="var(--ember)" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C * pct / 100} ${C}" transform="rotate(-90 37 37)"/></svg>`;
   };
   document.getElementById("stats").innerHTML = `
-    <div class="panel stat reveal"><div class="k">Temps de jeu</div><div class="v">${esc(D.meta.playtime)}</div><div class="s" title="${esc(D.meta.playtimeNote)}">Steam : ${esc(D.meta.steam)} · fin estimée ${esc(D.meta.estimateTotal)}</div></div>
+    <div class="panel stat reveal"><div class="k">Temps de jeu</div><div class="v">${esc(D.meta.playtime)}</div><div class="s" title="${esc(D.meta.playtimeNote)}">Steam : ${esc(D.meta.steam)} · ${D.meta.finished ? "jeu terminé ✔" : `fin estimée ${esc(D.meta.estimateTotal)}`}</div></div>
     <div class="panel stat reveal"><div class="stat-row"><div><div class="k">Progression</div><div class="v">≈ ${D.meta.progress} %</div><div class="s" title="${esc(D.meta.estimateNote || "")}">des notes du journal (jeu de base)</div></div>${ring(D.meta.progress)}</div></div>
     <div class="panel stat reveal"><div class="k">Lieux explorés</div><div class="v">${done}<span class="muted" style="font-size:20px"> / ${cards.length}</span></div><div class="s">épinglés sur le tableau</div></div>
     <div class="panel stat reveal"><div class="k">Pistes ouvertes</div><div class="v">${open}</div><div class="s">${cards.filter(c => c.status === "blocked").length} bloquées · ${cards.filter(c => c.status === "partial").length} incomplètes</div></div>`;

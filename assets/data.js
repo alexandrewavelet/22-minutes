@@ -11,36 +11,36 @@ window.OW = {
 
   meta: {
     lastUpdate: "4 octobre 2026",
-    lastSession: "4 octobre 2026 (sauvegarde de 03 h 54)",
+    lastSession: "4 octobre 2026 (sauvegarde de 11 h 55)",
     playtime: "≈ 15 h",
     steam: "18 h",
-    playtimeNote: "Steam affiche 18 h, pauses et menus compris. La sauvegarde compte 47 boucles, dont 11 menées jusqu’à la supernova.",
+    playtimeNote: "Steam affiche 18 h, pauses et menus compris. La sauvegarde compte 52 boucles, dont 12 menées jusqu’à la supernova.",
     estimateTotal: "18 – 20 h",
-    estimateNote: "Calcul du 4 oct. 2026 : 232 notes sur 281 dans le journal du jeu de base (83 %). Il resterait environ 3 à 5 h de jeu réel, soit 21 à 24 h sur Steam.",
-    progress: 83,
+    finished: true,
+    estimateNote: "Jeu terminé le 4 oct. 2026 ! 245 notes sur 281 dans le journal du jeu de base (87 %) : quelques recoins restent inexplorés.",
+    progress: 87,
     platform: "PC (manette conseillée)"
   },
 
   /* Où en est le voyageur MAINTENANT */
   now: {
-    planet: "cravite",
-    card: "cra-tour",
-    title: "Au pied de la Tour du savoir quantique",
-    text: "Posé sur la Lune quantique, mais il manque la règle du sixième emplacement, enseignée par la Tour du savoir quantique de Cravité. Son escalier est cassé : pas encore atteint le sommet. En chemin, découverte de l’ancienne colonie nomaï, de la capsule de sauvetage 1 et des fresques racontant le voyage du Vaisseau.",
+    planet: "sombronces",
+    card: "sb-vaisseau",
+    title: "Voyage terminé : l’Œil de l’univers",
+    text: "Le générateur de distorsion du Projet Sablière noire installé dans le Vaisseau, cap sur les coordonnées de l’Œil. Arrivée sur l’Œil, saut dans le cratère… Jeu terminé !",
     nextSteps: [
-      { planet: "cravite",        text: "Atteindre le sommet de la Tour du savoir quantique : s’installer dedans tôt dans la boucle et attendre qu’elle tombe dans le trou noir." },
-      { planet: "sombronces",     text: "Saisir les coordonnées de l’Œil sur le pilier trilatéral du Vaisseau." },
-      { planet: "lune-quantique", text: "Revenir sur la Lune quantique une fois la règle du sixième emplacement connue." }
+      { planet: "station-solaire", text: "Pour le plaisir : la Station solaire n’a jamais été visitée." },
+      { planet: "sablieres",       text: "Pour le plaisir : la grotte asséchée de Coleus et les grottes quantiques gardent encore des secrets." }
     ]
   },
 
   /* Statistiques tirées de la sauvegarde */
   save: {
-    loops: 47, fullLoops: 11, facts: 232, entries: 58,
-    burnedMarshmallows: 6, perfectMarshmallows: 0,
-    travelers: ["Esker", "Chail", "Riébeck", "Gabbro", "Feldspath"],
+    loops: 52, fullLoops: 12, facts: 245, entries: 59,
+    burnedMarshmallows: 11, perfectMarshmallows: 0,
+    travelers: ["Esker", "Chail", "Riébeck", "Gabbro", "Feldspath", "Solanum"],
     abilities: ["Méditer jusqu’à la boucle suivante (appris auprès de Gabbro)"],
-    fun: ["A déjà vu le soleil exploser… et le sait.", "A déjà foncé dans le soleil en pilote automatique. 🔥", "A retrouvé le vaisseau de Gabbro pour lui.", "A exploré le nid des cœlacanthes (et en est ressorti).", "A déjà goûté à la matière fantôme. Une seule fois, normalement.", "A trouvé le satellite d’espace lointain."]
+    fun: ["A déjà vu le soleil exploser… et le sait.", "A déjà foncé dans le soleil en pilote automatique. 🔥", "A retrouvé le vaisseau de Gabbro pour lui.", "A exploré le nid des cœlacanthes (et en est ressorti).", "A déjà goûté à la matière fantôme. Une seule fois, normalement.", "A trouvé le satellite d’espace lointain.", "A rencontré Solanum.", "A atteint l’Œil de l’univers. 👁️"]
   },
 
   player: {
@@ -53,18 +53,18 @@ window.OW = {
   planets: [
     { id: "atrebois",        name: "Âtrebois",        sub: "& Rocaille",    en: "Timber Hearth (+ Attlerock)", page: "planetes/atrebois.html",        status: "partial",
       blurb: "Planète natale du voyageur : village, observatoire, grotte antigrav, une graine de Sombronces écrasée… et Rocaille, la lune où vit Esker." },
-    { id: "cravite",         name: "Cravité",         sub: "& station du trou blanc", en: "Brittle Hollow (+ White Hole Station)", page: "planetes/cravite.html", status: "current",
+    { id: "cravite",         name: "Cravité",         sub: "& station du trou blanc", en: "Brittle Hollow (+ White Hole Station)", page: "planetes/cravite.html", status: "partial",
       blurb: "Planète creuse qui s’effondre dans son trou noir. Cité suspendue, Riébeck, observatoire sud… et de l’autre côté du trou noir, la station du trou blanc." },
     { id: "leviathe",        name: "Léviathe",        sub: "",              en: "Giant’s Deep",                page: "planetes/leviathe.html",        status: "done",
       blurb: "Géante océanique balayée par des tornades. Îles, statues, Gabbro dans son hamac, un courant qui bloque les abysses… et un lance-sondes en orbite." },
     { id: "sablieres",       name: "Les Sablières",   sub: "rouge & noire", en: "Hourglass Twins",             page: "planetes/sablieres.html",       status: "partial",
       blurb: "Deux planètes jumelles : le sable passe de la noire à la rouge pendant la boucle. Cité obscure, laboratoire, fossile… et le Projet Sablière noire." },
     { id: "sombronces",      name: "Sombronces",      sub: "",              en: "Dark Bramble",                page: "planetes/sombronces.html",      status: "partial",
-      blurb: "Une boule de ronces et de brume, plus grande à l’intérieur qu’à l’extérieur. Des lumières, des cœlacanthes, et peut-être le Vaisseau des Nomaï." },
+      blurb: "Une boule de ronces et de brume, plus grande à l’intérieur qu’à l’extérieur. Des lumières, des cœlacanthes, et l’épave du Vaisseau des Nomaï, qui a fini par repartir vers l’Œil." },
     { id: "intrus",          name: "L’Intrus",        sub: "",              en: "The Interloper",              page: "planetes/intrus.html",          status: "partial",
       blurb: "Une comète glacée sur une orbite très allongée. Des Nomaï y ont atterri et sont descendus par une fissure dans la glace." },
-    { id: "lune-quantique",  name: "Lune quantique",  sub: "",              en: "Quantum Moon",                page: "planetes/lune-quantique.html",  status: "partial",
-      blurb: "Une lune qui ne reste jamais au même endroit quand on ne la regarde pas. Solanum y est allée en navette. Comment s’y poser ?" },
+    { id: "lune-quantique",  name: "Lune quantique",  sub: "",              en: "Quantum Moon",                page: "planetes/lune-quantique.html",  status: "done",
+      blurb: "Une lune qui ne reste jamais au même endroit quand on ne la regarde pas. Son sixième emplacement : en orbite autour de l’Œil, où Solanum attendait encore." },
     { id: "station-solaire", name: "Station solaire", sub: "",              en: "Sun Station",                 page: "planetes/station-solaire.html", status: "todo",
       blurb: "Une structure nomaï construite près du soleil, qui a beaucoup divisé les Nomaï. Seulement entendue, jamais visitée." }
   ],
@@ -162,9 +162,9 @@ window.OW = {
       details: ["Il émet le même signal que la Lune quantique : les Nomaï pensaient que c’en était un morceau."],
       log: ["BH_QUANTUM_SHARD"], hints: [], pos: { x: 1150, y: 400 } },
 
-    { id: "cra-tour", planet: "cravite", zone: "Cravité", title: "Tour du savoir quantique", status: "current", hours: "≈ 2 h",
+    { id: "cra-tour", planet: "cravite", zone: "Cravité", title: "Tour du savoir quantique", status: "done", hours: "≈ 2 h",
       summary: "Sur l’équateur de Cravité : un savoir précieux pour les Nomaï qui partaient en pèlerinage vers la Lune quantique.",
-      details: ["Pas encore visitée (« ? » dans le journal). À ne pas confondre avec la Tour des épreuves quantiques de Léviathe."],
+      details: ["Sommet atteint, deux textes lus : l’autel doit se trouver au pôle Nord de la Lune quantique pour accéder au sixième emplacement.", "Rien d’autre à faire au sommet. À ne pas confondre avec la Tour des épreuves quantiques de Léviathe."],
       log: ["BH_QUANTUM_RESEARCH_TOWER"], hints: [
         { lvl: 1, text: "On ne peut pas monter normalement (escalier détruit). Cravité s’effondre dans son trou noir… et ce qui y tombe ressort au trou blanc." },
         { lvl: 2, text: "Rester sur la tour et attendre : la croûte qui la porte se détache, la tour passe par le trou noir et ressort au trou blanc, en apesanteur. Monter alors au jetpack. Arriver tôt dans la boucle." }
@@ -339,10 +339,10 @@ window.OW = {
       ],
       log: [], hints: [{ lvl: 3, text: "Astuce concrète donnée (voir détails)." }], pos: { x: 1340, y: 1070 } },
 
-    { id: "sb-vaisseau", planet: "sombronces", zone: "Sombronces", title: "Le Vaisseau", status: "partial", hours: "≈ 12 h",
+    { id: "sb-vaisseau", planet: "sombronces", zone: "Sombronces", title: "Le Vaisseau", status: "done", hours: "≈ 12 h",
       summary: "Atteint ! L’épave du Vaisseau nomaï, au fond de Sombronces. Sur le pont : un pilier trilatéral (hexagones) qui sert de dispositif de saisie. Il a reçu le tout premier signal de l’Œil de l’univers.",
-      img: { src: "assets/img/coordonnees-oeil.webp", caption: "Les coordonnées à saisir ? (capture du module de pistage)" },
-      details: ["Trouvé grâce au repère du guetteur envoyé dans la petite graine de la tombe nomaï.", "Le système de communication n’a pas résisté au crash, mais le Vaisseau reçoit encore les messages des autres clans, qui se rassemblent face à la mort imminente de l’univers.", "Les Nomaï sont passés en distorsion vers l’Œil sans prévenir les autres clans.", "Pilier trilatéral : pas encore testé faute de temps. Il attend une information précise.", "Journal : il reste encore des choses à découvrir ici."], log: ["DB_VESSEL"],
+      img: { src: "assets/img/coordonnees-oeil.webp", caption: "Les coordonnées de l’Œil, saisies sur le pilier trilatéral" },
+      details: ["Trouvé grâce au repère du guetteur envoyé dans la petite graine de la tombe nomaï.", "Le système de communication n’a pas résisté au crash, mais le Vaisseau reçoit encore les messages des autres clans, qui se rassemblent face à la mort imminente de l’univers.", "Les Nomaï sont passés en distorsion vers l’Œil sans prévenir les autres clans.", "Pilier trilatéral : coordonnées de l’Œil saisies, mais rien ne se passe sans générateur de distorsion.", "Générateur de distorsion avancé du Projet Sablière noire installé : le Vaisseau passe en distorsion vers l’Œil de l’univers."], log: ["DB_VESSEL"],
       hints: [
         { lvl: 1, text: "Les survivants ont suivi la plus proche des DEUX balises, faute d’oxygène. L’autre balise existe toujours." },
         { lvl: 2, text: "Le guetteur est déjà allé là où tu veux aller : lance-le dans la petite graine, puis regarde où apparaît son repère (et combien il y en a)." },
@@ -375,15 +375,17 @@ window.OW = {
       pos: { x: 1650, y: 1340 } },
 
     /* ---------- LUNE QUANTIQUE ---------- */
-    { id: "lq-approche", planet: "lune-quantique", zone: "Lune quantique", title: "Posé sur la Lune quantique !", status: "partial", hours: "≈ 11 h",
+    { id: "lq-approche", planet: "lune-quantique", zone: "Lune quantique", title: "Posé sur la Lune quantique !", status: "done", hours: "≈ 11 h",
       summary: "Premier Âtrien à s’y poser, grâce à la photo du guetteur affichée dans le cockpit. Un autel nomaï errant y rappelle trois règles : imagerie quantique, intrication quantique… et sixième emplacement.",
-      details: ["Les visiteurs arrivent toujours au pôle Sud (raison inconnue des Nomaï).", "Elle disparaît parfois, peut-être vers un sixième emplacement inconnu."],
+      details: ["Les visiteurs arrivent toujours au pôle Sud (raison inconnue des Nomaï).", "Sixième emplacement atteint (autel au pôle Nord) : la Lune orbite autour de l’Œil de l’univers, dont elle est la lune.", "Solanum, encore en vie, au pôle Sud : elle se demande ce qu’il adviendrait si un observateur conscient entrait dans l’Œil.", "Journal : entièrement exploré."],
       log: ["QUANTUM_MOON", "QM_SHRINE", "QM_SIXTH_LOCATION"],
       hints: [
         { lvl: 1, text: "Comment pourrais-tu continuer à observer la Lune pendant que tu t’en rapproches ?" },
         { lvl: 2, text: "Tu n’as pas besoin de l’observer directement : une image compte comme une observation." },
         { lvl: 2, text: "Qu’est-ce qui, dans ton vaisseau, pourrait continuer à « regarder » la Lune pendant que tu pilotes ?" },
-        { lvl: 3, text: "Solution donnée : depuis le vaisseau, lancer le guetteur vers la Lune et la photographier en entier. La photo reste affichée sur l’écran du cockpit et compte comme une observation. La garder affichée pendant l’approche et l’atterrissage. La caméra d’atterrissage seule = détourner le regard, la Lune disparaît." }
+        { lvl: 3, text: "Solution donnée : depuis le vaisseau, lancer le guetteur vers la Lune et la photographier en entier. La photo reste affichée sur l’écran du cockpit et compte comme une observation. La garder affichée pendant l’approche et l’atterrissage. La caméra d’atterrissage seule = détourner le regard, la Lune disparaît." },
+        { lvl: 1, text: "Sixième emplacement : c’est l’autel qui doit se trouver au pôle Nord. Tu as déjà réussi à le faire bouger une fois." },
+        { lvl: 2, text: "On ne peut pas forcer l’autel à apparaître au pôle Nord en l’y attendant. Voyager avec lui (comme en sortant de l’autel lampe éteinte) et regarder où on arrive (pôle Nord = rouge sur la mini-carte)." }
       ], pos: { x: 1960, y: 1060 } },
 
     { id: "lq-navette", planet: "lune-quantique", zone: "Lune quantique", title: "Navette de Solanum", status: "done", hours: "≈ 3 h",
@@ -399,12 +401,12 @@ window.OW = {
 
   notes: [
     { id: "n-q1", text: "Comment atteindre le lance-sondes en orbite ? (un flash au début de chaque boucle…)", pos: { x: 2470, y: 330 }, color: "yellow" },
-    { id: "n-q2", text: "Le générateur de distorsion… à quoi sert-il vraiment ?", pos: { x: 870, y: 1890 }, color: "pink" },
+    { id: "n-q2", text: "Le générateur de distorsion… à quoi sert-il vraiment ? → Il fait voyager le Vaisseau jusqu’à l’Œil.", pos: { x: 870, y: 1890 }, color: "pink" },
     { id: "n-q3", text: "Grotte asséchée : où est passé Coleus ?", pos: { x: 330, y: 1860 }, color: "yellow" },
     { id: "n-q4", text: "Deux balises : le Vaisseau à deux endroits à la fois ??", pos: { x: 1420, y: 1620 }, color: "blue" },
-    { id: "n-q5", text: "Un sixième emplacement pour la Lune quantique ?", pos: { x: 2240, y: 1370 }, color: "blue" },
+    { id: "n-q5", text: "Un sixième emplacement pour la Lune quantique ? → Oui : en orbite autour de l’Œil.", pos: { x: 2240, y: 1370 }, color: "blue" },
     { id: "n-q6", text: "« L’Œil de l’univers » : plus vieux que l’univers ?!", pos: { x: 1420, y: 700 }, color: "pink" },
-    { id: "n-q7", text: "Le pilier trilatéral du Vaisseau attend une saisie… laquelle ?", pos: { x: 1620, y: 1620 }, color: "yellow" },
+    { id: "n-q7", text: "Le pilier trilatéral du Vaisseau attend une saisie… laquelle ? → Les coordonnées de l’Œil.", pos: { x: 1620, y: 1620 }, color: "yellow" },
     { id: "n-rule", text: "« Quand une piste demande une idée que tu n’as pas encore → va en explorer une autre. »", pos: { x: 2380, y: 700 }, color: "green" }
   ],
 
@@ -547,13 +549,29 @@ window.OW = {
         "Autel nomaï errant : fresques des règles de l’imagerie, de l’intrication et du sixième emplacement.",
         "Coincé dans l’autel par un gros rocher."
       ] }
-    ,{ id: "t11", hours: "15 – 18 h (Steam)", order: "#184 – #198", range: [184, 260], title: "Retour dans les profondeurs de Cravité", planets: ["cravite", "sombronces"], current: true,
+    ,{ id: "t11", hours: "15 – 18 h (Steam)", order: "#184 – #198", range: [184, 198], title: "Retour dans les profondeurs de Cravité", planets: ["cravite", "sombronces"],
       items: [
         "Sorti de l’autel quantique en éteignant la lampe.",
         "Tour du savoir quantique : l’escalier est cassé, le sommet reste hors d’atteinte… pour l’instant.",
         "Capsule de sauvetage 1 et ancienne colonie : les survivants ont fui vers le glacier nord par les cristaux gravitationnels.",
         "Trois fresques : le Vaisseau capte le signal de l’Œil, se retrouve piégé dans Sombronces, lâche trois capsules.",
         "Le récit des trois capsules est complet : Cravité, Sablières, Sombronces."
+      ] }
+    ,{ id: "t12", hours: "≈ 18 h (Steam)", order: "#199 – #209", range: [199, 209], title: "Le sixième emplacement", planets: ["cravite", "lune-quantique"],
+      items: [
+        "Sommet de la Tour du savoir quantique atteint : l’autel doit se trouver au pôle Nord de la Lune.",
+        "Voyage avec l’autel jusqu’au pôle Nord : la Lune quantique rejoint son sixième emplacement, en orbite autour de l’Œil.",
+        "Rencontre avec Solanum, une Nomaï encore en vie ! Conversation complète grâce aux pierres.",
+        "La Lune quantique est la lune de l’Œil, et l’Œil serait la source de tous les phénomènes quantiques du système.",
+        "Coordonnées de l’Œil saisies sur le pilier du Vaisseau : rien ne se passe. Déduction : il manque un générateur de distorsion (celui du Projet Sablière noire)."
+      ] }
+    ,{ id: "t13", hours: "≈ 19 h (Steam)", order: "Fin", range: [210, 260], title: "L’Œil de l’univers", planets: ["sablieres", "sombronces"], current: true,
+      items: [
+        "Générateur de distorsion avancé récupéré au cœur du Projet Sablière noire.",
+        "Retour au Vaisseau, au fond de Sombronces : générateur installé, coordonnées saisies… distorsion !",
+        "Arrivée sur l’Œil de l’univers. L’onduloscope pointe vers le ciel, au-dessus d’un grand cratère.",
+        "Saut dans le cratère… et jusqu’au bout du voyage.",
+        "Jeu terminé ! 🎉"
       ] }
   ]
 };
