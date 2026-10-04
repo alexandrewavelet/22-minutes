@@ -119,6 +119,7 @@
       <p style="margin:0">${esc(c.summary)}</p>
       ${c.details.length ? `<ul>${c.details.map(d => `<li>${esc(d)}</li>`).join("")}</ul>` : ""}
       ${c.hints.length ? `<details class="hints"><summary>Indices déjà reçus (${c.hints.length}) — cliquer pour afficher</summary>${c.hints.map(h => `<div class="hint"><span class="lvl">niv. ${h.lvl}</span><span>${esc(h.text)}</span></div>`).join("")}</details>` : ""}
+      ${c.img ? `<figure class="shot"><a href="${R}${c.img.src}" target="_blank"><img src="${R}${c.img.src}" alt="${esc(c.img.caption)}" loading="lazy"></a><figcaption>${esc(c.img.caption)}</figcaption></figure>` : ""}
       ${U.logBlock(c)}
       <div style="margin-top:12px;font-size:13px"><a href="${R}tableau.html#${c.id}">📌 sur le tableau</a></div>
     </article>`;

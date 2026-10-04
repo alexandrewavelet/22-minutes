@@ -194,3 +194,8 @@ ul.logfacts li.rumor { color: #b9c3dc; font-style: italic; }
 ul.logfacts li .n { position: absolute; left: 0; top: 7px; font-family: var(--font-type); font-size: 11px; color: var(--faint); font-style: normal; }
 ul.logfacts li.rumor::after { content: "rumeur"; margin-left: 8px; font-family: var(--font-type); font-size: 10px; font-style: normal; color: var(--st-todo); opacity: .8; }
 .new { display: inline-block; margin-right: 6px; font-family: var(--font-type); font-size: 10px; font-style: normal; color: #1a0d03; background: var(--ember); padding: 0 6px; border-radius: 99px; vertical-align: 1px; }
+
+/* ---------- Captures d'écran ---------- */
+figure.shot { margin: 14px 0 0; }
+figure.shot img { width: 100%; display: block; border-radius: 10px; border: 1px solid var(--line-strong); }
+figure.shot figcaption { font-family: var(--font-hand); font-size: 19px; color: var(--sun); margin-top: 6px; }

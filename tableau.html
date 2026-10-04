@@ -272,6 +272,7 @@
       <p style="margin-top:14px">${esc(c.summary)}</p>
       ${c.details.length ? `<ul>${c.details.map(d => `<li>${esc(d)}</li>`).join("")}</ul>` : ""}
       ${c.hints.length ? `<details class="hints"><summary>Indices déjà reçus (${c.hints.length})</summary>${c.hints.map(h => `<div class="hint"><span class="lvl">niv. ${h.lvl}</span><span>${esc(h.text)}</span></div>`).join("")}</details>` : ""}
+      ${c.img ? `<figure class="shot"><a href="${c.img.src}" target="_blank"><img src="${c.img.src}" alt="${esc(c.img.caption)}"></a><figcaption>${esc(c.img.caption)}</figcaption></figure>` : ""}
       ${U.logBlock(c, true)}
       ${rel ? `<div class="eyebrow" style="margin-top:22px">Fils reliés</div><div class="links">${rel}</div>` : ""}
       <p style="margin-top:22px"><a class="btn" href="${p.page}#${c.id}">Page ${esc(p.name)} →</a></p>`;

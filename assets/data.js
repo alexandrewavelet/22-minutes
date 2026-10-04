@@ -10,36 +10,37 @@
 window.OW = {
 
   meta: {
-    lastUpdate: "3 octobre 2026",
-    lastSession: "3 octobre 2026 (sauvegarde de 18 h 32)",
-    playtime: "≈ 11 – 12 h",
-    playtimeNote: "Steam affiche 14 h, pauses et menus compris. La sauvegarde compte 31 boucles, dont 10 menées jusqu’à la supernova.",
-    estimateTotal: "19 – 21 h",
-    estimateNote: "Calcul du 3 oct. 2026 : 166 notes sur 281 dans le journal du jeu de base (59 %). Rythme moyen d’environ 14 notes à l’heure, qui ralentit en fin de partie. Il resterait 7 à 10 h.",
-    progress: 59,
+    lastUpdate: "4 octobre 2026",
+    lastSession: "4 octobre 2026 (sauvegarde de 03 h 54)",
+    playtime: "≈ 15 h",
+    steam: "18 h",
+    playtimeNote: "Steam affiche 18 h, pauses et menus compris. La sauvegarde compte 47 boucles, dont 11 menées jusqu’à la supernova.",
+    estimateTotal: "18 – 20 h",
+    estimateNote: "Calcul du 4 oct. 2026 : 232 notes sur 281 dans le journal du jeu de base (83 %). Il resterait environ 3 à 5 h de jeu réel, soit 21 à 24 h sur Steam.",
+    progress: 83,
     platform: "PC (manette conseillée)"
   },
 
   /* Où en est le voyageur MAINTENANT */
   now: {
-    planet: "sombronces",
-    card: "sb-capsule3",
-    title: "Perdu dans Sombronces",
-    text: "Capsule de sauvetage 3 trouvée : ses survivants ont capté deux balises du Vaisseau (comme s’il était à deux endroits à la fois) et ont suivi la plus proche en laissant des lumières derrière eux. En les suivant… dévoré par des cœlacanthes. Astuce reçue pour les passer. 5 nouvelles notes de Sombronces pas encore lues dans le journal du vaisseau !",
+    planet: "cravite",
+    card: "cra-tour",
+    title: "Au pied de la Tour du savoir quantique",
+    text: "Posé sur la Lune quantique, mais il manque la règle du sixième emplacement, enseignée par la Tour du savoir quantique de Cravité. Son escalier est cassé : pas encore atteint le sommet. En chemin, découverte de l’ancienne colonie nomaï, de la capsule de sauvetage 1 et des fresques racontant le voyage du Vaisseau.",
     nextSteps: [
-      { planet: "sombronces",     text: "Suivre les lumières des survivants… en dérivant, moteurs coupés (les cœlacanthes sont aveugles)." },
-      { planet: "intrus",         text: "Trouver la fissure dans la glace, sur la face ensoleillée de l’Intrus." },
-      { planet: "lune-quantique", text: "Approcher la Lune quantique : qu’est-ce qui peut « regarder » la Lune pendant que tu pilotes ?" }
+      { planet: "cravite",        text: "Atteindre le sommet de la Tour du savoir quantique : s’installer dedans tôt dans la boucle et attendre qu’elle tombe dans le trou noir." },
+      { planet: "sombronces",     text: "Saisir les coordonnées de l’Œil sur le pilier trilatéral du Vaisseau." },
+      { planet: "lune-quantique", text: "Revenir sur la Lune quantique une fois la règle du sixième emplacement connue." }
     ]
   },
 
   /* Statistiques tirées de la sauvegarde */
   save: {
-    loops: 31, fullLoops: 10, facts: 166, entries: 48,
+    loops: 47, fullLoops: 11, facts: 232, entries: 58,
     burnedMarshmallows: 6, perfectMarshmallows: 0,
-    travelers: ["Esker", "Chail", "Riébeck", "Gabbro"],
+    travelers: ["Esker", "Chail", "Riébeck", "Gabbro", "Feldspath"],
     abilities: ["Méditer jusqu’à la boucle suivante (appris auprès de Gabbro)"],
-    fun: ["A déjà vu le soleil exploser… et le sait.", "A déjà foncé dans le soleil en pilote automatique. 🔥", "A retrouvé le vaisseau de Gabbro pour lui."]
+    fun: ["A déjà vu le soleil exploser… et le sait.", "A déjà foncé dans le soleil en pilote automatique. 🔥", "A retrouvé le vaisseau de Gabbro pour lui.", "A exploré le nid des cœlacanthes (et en est ressorti).", "A déjà goûté à la matière fantôme. Une seule fois, normalement.", "A trouvé le satellite d’espace lointain."]
   },
 
   player: {
@@ -52,17 +53,17 @@ window.OW = {
   planets: [
     { id: "atrebois",        name: "Âtrebois",        sub: "& Rocaille",    en: "Timber Hearth (+ Attlerock)", page: "planetes/atrebois.html",        status: "partial",
       blurb: "Planète natale du voyageur : village, observatoire, grotte antigrav, une graine de Sombronces écrasée… et Rocaille, la lune où vit Esker." },
-    { id: "cravite",         name: "Cravité",         sub: "& station du trou blanc", en: "Brittle Hollow (+ White Hole Station)", page: "planetes/cravite.html", status: "partial",
+    { id: "cravite",         name: "Cravité",         sub: "& station du trou blanc", en: "Brittle Hollow (+ White Hole Station)", page: "planetes/cravite.html", status: "current",
       blurb: "Planète creuse qui s’effondre dans son trou noir. Cité suspendue, Riébeck, observatoire sud… et de l’autre côté du trou noir, la station du trou blanc." },
-    { id: "leviathe",        name: "Léviathe",        sub: "",              en: "Giant’s Deep",                page: "planetes/leviathe.html",        status: "partial",
+    { id: "leviathe",        name: "Léviathe",        sub: "",              en: "Giant’s Deep",                page: "planetes/leviathe.html",        status: "done",
       blurb: "Géante océanique balayée par des tornades. Îles, statues, Gabbro dans son hamac, un courant qui bloque les abysses… et un lance-sondes en orbite." },
     { id: "sablieres",       name: "Les Sablières",   sub: "rouge & noire", en: "Hourglass Twins",             page: "planetes/sablieres.html",       status: "partial",
       blurb: "Deux planètes jumelles : le sable passe de la noire à la rouge pendant la boucle. Cité obscure, laboratoire, fossile… et le Projet Sablière noire." },
-    { id: "sombronces",      name: "Sombronces",      sub: "",              en: "Dark Bramble",                page: "planetes/sombronces.html",      status: "current",
+    { id: "sombronces",      name: "Sombronces",      sub: "",              en: "Dark Bramble",                page: "planetes/sombronces.html",      status: "partial",
       blurb: "Une boule de ronces et de brume, plus grande à l’intérieur qu’à l’extérieur. Des lumières, des cœlacanthes, et peut-être le Vaisseau des Nomaï." },
     { id: "intrus",          name: "L’Intrus",        sub: "",              en: "The Interloper",              page: "planetes/intrus.html",          status: "partial",
       blurb: "Une comète glacée sur une orbite très allongée. Des Nomaï y ont atterri et sont descendus par une fissure dans la glace." },
-    { id: "lune-quantique",  name: "Lune quantique",  sub: "",              en: "Quantum Moon",                page: "planetes/lune-quantique.html",  status: "blocked",
+    { id: "lune-quantique",  name: "Lune quantique",  sub: "",              en: "Quantum Moon",                page: "planetes/lune-quantique.html",  status: "partial",
       blurb: "Une lune qui ne reste jamais au même endroit quand on ne la regarde pas. Solanum y est allée en navette. Comment s’y poser ?" },
     { id: "station-solaire", name: "Station solaire", sub: "",              en: "Sun Station",                 page: "planetes/station-solaire.html", status: "todo",
       blurb: "Une structure nomaï construite près du soleil, qui a beaucoup divisé les Nomaï. Seulement entendue, jamais visitée." }
@@ -117,10 +118,16 @@ window.OW = {
       log: ["TM_EYE_LOCATOR"], hints: [], pos: { x: 320, y: 730 } },
 
     /* ---------- CRAVITÉ ---------- */
-    { id: "cra-riebeck", planet: "cravite", zone: "Cravité", title: "Campement de Riébeck", status: "done", hours: "≈ 2 h",
-      summary: "Riébeck, seul archéologue d’Âtrebois, campe au fond de la croisée des chemins, entre émerveillement et terreur du trou noir.",
-      details: ["Riébeck a trouvé un chemin nomaï partant du bâtiment en ruine envahi d’arbres, sur l’équateur."],
-      log: ["BH_RIEBECK"], hints: [], pos: { x: 640, y: 110 } },
+    { id: "cra-riebeck", planet: "cravite", zone: "Cravité", title: "Riébeck & l’ancienne colonie", status: "done", hours: "≈ 2 h / 15 h",
+      summary: "Riébeck campe au fond de la croisée des chemins. Plus tard : l’ancienne colonie des survivants de la capsule de sauvetage 1, avec trois fresques qui racontent l’histoire du Vaisseau.",
+      details: [
+        "Riébeck a trouvé un chemin nomaï partant du bâtiment en ruine envahi d’arbres, sur l’équateur.",
+        "Les survivants de la capsule 1 ont descendu le gouffre et bâti une colonie provisoire sous la capsule.",
+        "Jugeant la colonie instable, ils ont rejoint le glacier nord par un chemin de cristaux gravitationnels : la Cité suspendue.",
+        "C’est là qu’ils ont uni leurs efforts pour retrouver le signal de l’Œil de l’univers, capté à bord du Vaisseau.",
+        "Fresques : le Vaisseau capte un signal, se retrouve piégé dans Sombronces, et lâche trois capsules de sauvetage."
+      ],
+      log: ["BH_RIEBECK", "BH_OLD_SETTLEMENT", "BH_ESCAPE_POD", "BH_MURAL_1", "BH_MURAL_2", "BH_MURAL_3"], hints: [], pos: { x: 640, y: 110 } },
 
     { id: "cra-ville", planet: "cravite", zone: "Cravité", title: "Cité suspendue", status: "done", hours: "≈ 3 h",
       summary: "Une cité nomaï en quatre secteurs, suspendue sous le glacier nord. Les Nomaï sont venus chercher un signal plus vieux que l’univers : « l’Œil de l’univers ».",
@@ -155,10 +162,13 @@ window.OW = {
       details: ["Il émet le même signal que la Lune quantique : les Nomaï pensaient que c’en était un morceau."],
       log: ["BH_QUANTUM_SHARD"], hints: [], pos: { x: 1150, y: 400 } },
 
-    { id: "cra-tour", planet: "cravite", zone: "Cravité", title: "Tour du savoir quantique", status: "todo", hours: "≈ 2 h",
+    { id: "cra-tour", planet: "cravite", zone: "Cravité", title: "Tour du savoir quantique", status: "current", hours: "≈ 2 h",
       summary: "Sur l’équateur de Cravité : un savoir précieux pour les Nomaï qui partaient en pèlerinage vers la Lune quantique.",
       details: ["Pas encore visitée (« ? » dans le journal). À ne pas confondre avec la Tour des épreuves quantiques de Léviathe."],
-      log: ["BH_QUANTUM_RESEARCH_TOWER"], hints: [], pos: { x: 660, y: 680 } },
+      log: ["BH_QUANTUM_RESEARCH_TOWER"], hints: [
+        { lvl: 1, text: "On ne peut pas monter normalement (escalier détruit). Cravité s’effondre dans son trou noir… et ce qui y tombe ressort au trou blanc." },
+        { lvl: 2, text: "Rester sur la tour et attendre : la croûte qui la porte se détache, la tour passe par le trou noir et ressort au trou blanc, en apesanteur. Monter alors au jetpack. Arriver tôt dans la boucle." }
+      ], pos: { x: 660, y: 680 } },
 
     { id: "cra-glacier", planet: "cravite", zone: "Cravité", title: "Glacier nord", status: "done", hours: "≈ 3 h",
       summary: "Une ruine de forme particulière au pôle Nord : le récepteur où arrivaient les Nomaï envoyés par distorsion depuis la station du trou blanc.",
@@ -178,14 +188,17 @@ window.OW = {
       details: ["Il a appris au voyageur à méditer jusqu’à la boucle suivante.", "Vaisseau de Gabbro retrouvé et signalé."],
       log: ["GD_GABBRO_ISLAND"], hints: [], pos: { x: 1480, y: 110 } },
 
-    { id: "lev-noyau", planet: "leviathe", zone: "Léviathe", title: "Abysses & cœur", status: "partial", hours: "≈ 6 h",
+    { id: "lev-noyau", planet: "leviathe", zone: "Léviathe", title: "Abysses & cœur", status: "done", hours: "≈ 6 h",
       summary: "Un courant très fort empêche de descendre… mais le voyageur est passé dessous : l’océan y est calme, un champ électrique entoure le cœur.",
       details: [
         "Près du cœur, l’électricité du vaisseau saute.",
         "Feldspath avait trouvé un moyen d’atteindre le cœur.",
         "Journal : il reste encore des choses à découvrir ici."
       ],
-      log: ["GD_OCEAN"], hints: [{ lvl: 1, text: "Si tu ne vois aucun moyen de progresser, n’insiste pas pour le moment." }],
+      log: ["GD_OCEAN"], hints: [
+        { lvl: 1, text: "Si tu ne vois aucun moyen de progresser, n’insiste pas pour le moment." },
+        { lvl: 3, text: "Solution donnée : tornade à rotation inversée (antihoraire vue d’en haut) pour passer sous le courant ; puis en combinaison, entrer dans une méduse géante PAR DESSOUS et se laisser porter à travers le champ électrique jusqu’au cœur." }
+      ],
       pos: { x: 1730, y: 100 } },
 
     { id: "lev-canon", planet: "leviathe", zone: "Léviathe", title: "Site de construction", status: "done", hours: "≈ 5 h",
@@ -196,10 +209,11 @@ window.OW = {
       ],
       log: ["GD_CONSTRUCTION_YARD"], hints: [], pos: { x: 1980, y: 120 } },
 
-    { id: "lev-sonde", planet: "leviathe", zone: "Léviathe", title: "Lance-sondes orbital", status: "todo", hours: "≈ 5 h",
-      summary: "Le lance-sondes en orbite autour de Léviathe. Gabbro voit un flash dans le ciel au début de chaque boucle.",
-      details: ["Pas encore visité (« ? »). Question ouverte : comment y accéder ?"],
-      log: ["ORBITAL_PROBE_CANNON"], hints: [{ lvl: 1, text: "Si tu ne vois pas comment y accéder, il te manque sans doute des pièces du puzzle." }],
+    { id: "lev-sonde", planet: "leviathe", zone: "Léviathe", title: "Lance-sondes orbital", status: "done", hours: "≈ 13 h",
+      summary: "Visité ! Créé pour trouver l’emplacement exact de l’Œil. Poussé au-delà de sa puissance maximale, il a été endommagé au tir. Le module de pistage, qui reçoit les données de la sonde, a « disparu ».",
+      details: ["Module de lancement : hublot fracturé, bassin de projection intact.", "Module de contrôle : le Projet Sablière noire a (récemment) demandé un tir, sur une trajectoire choisie au hasard.", "Le premier Nomaï à bord du module de pistage aurait connu les coordonnées de l’Œil de l’univers.", "Vu au bassin de projection : le module de pistage est sous l’eau, avec de l’électricité violette derrière le hublot."],
+      img: { src: "assets/img/coordonnees-oeil.webp", caption: "Les coordonnées de l’Œil de l’univers (module de pistage)" },
+      log: ["ORBITAL_PROBE_CANNON", "OPC_INTACT_MODULE", "OPC_BROKEN_MODULE", "OPC_SUNKEN_MODULE"], hints: [{ lvl: 1, text: "Si tu ne vois pas comment y accéder, il te manque sans doute des pièces du puzzle." }],
       pos: { x: 2230, y: 110 } },
 
     { id: "lev-feldspath", planet: "leviathe", zone: "Léviathe", title: "Île des ronces", status: "done", hours: "≈ 5 h",
@@ -304,7 +318,7 @@ window.OW = {
       ], pos: { x: 860, y: 1630 } },
 
     /* ---------- SOMBRONCES ---------- */
-    { id: "sb-capsule3", planet: "sombronces", zone: "Sombronces", title: "Capsule de sauvetage 3", status: "current", hours: "≈ 11 h",
+    { id: "sb-capsule3", planet: "sombronces", zone: "Sombronces", title: "Capsule de sauvetage 3", status: "done", hours: "≈ 11 h",
       summary: "Ses survivants ont capté deux balises du Vaisseau, comme s’il était à deux endroits à la fois. Ils ont suivi la plus proche en laissant des lumières.",
       details: [
         "Le voyageur a suivi les lumières… et s’est fait dévorer par des cœlacanthes.",
@@ -316,7 +330,7 @@ window.OW = {
         { lvl: 2, text: "Il y a une manière beaucoup plus sûre de traverser certaines zones." }
       ], pos: { x: 1080, y: 1060 } },
 
-    { id: "sb-coelacanthes", planet: "sombronces", zone: "Sombronces", title: "Les cœlacanthes", status: "current", hours: "≈ 11 h",
+    { id: "sb-coelacanthes", planet: "sombronces", zone: "Sombronces", title: "Les cœlacanthes", status: "done", hours: "≈ 11 h",
       summary: "Ils sont aveugles (fossile de la Sablière rouge) et réagissent au bruit des propulseurs.",
       details: [
         "S’orienter AVANT d’entrer dans leur zone, petite poussée, puis moteurs coupés.",
@@ -325,35 +339,51 @@ window.OW = {
       ],
       log: [], hints: [{ lvl: 3, text: "Astuce concrète donnée (voir détails)." }], pos: { x: 1340, y: 1070 } },
 
-    { id: "sb-vaisseau", planet: "sombronces", zone: "Sombronces", title: "Le Vaisseau", status: "todo", hours: "≈ 3 h",
-      summary: "Le vaisseau des Nomaï, dont venaient les trois capsules. Son générateur de distorsion s’est brisé quand il s’est écrasé sur Sombronces.",
-      details: ["Pas encore trouvé (« ? »)."], log: ["DB_VESSEL"], hints: [], pos: { x: 1090, y: 1330 } },
+    { id: "sb-vaisseau", planet: "sombronces", zone: "Sombronces", title: "Le Vaisseau", status: "partial", hours: "≈ 12 h",
+      summary: "Atteint ! L’épave du Vaisseau nomaï, au fond de Sombronces. Sur le pont : un pilier trilatéral (hexagones) qui sert de dispositif de saisie. Il a reçu le tout premier signal de l’Œil de l’univers.",
+      img: { src: "assets/img/coordonnees-oeil.webp", caption: "Les coordonnées à saisir ? (capture du module de pistage)" },
+      details: ["Trouvé grâce au repère du guetteur envoyé dans la petite graine de la tombe nomaï.", "Le système de communication n’a pas résisté au crash, mais le Vaisseau reçoit encore les messages des autres clans, qui se rassemblent face à la mort imminente de l’univers.", "Les Nomaï sont passés en distorsion vers l’Œil sans prévenir les autres clans.", "Pilier trilatéral : pas encore testé faute de temps. Il attend une information précise.", "Journal : il reste encore des choses à découvrir ici."], log: ["DB_VESSEL"],
+      hints: [
+        { lvl: 1, text: "Les survivants ont suivi la plus proche des DEUX balises, faute d’oxygène. L’autre balise existe toujours." },
+        { lvl: 2, text: "Le guetteur est déjà allé là où tu veux aller : lance-le dans la petite graine, puis regarde où apparaît son repère (et combien il y en a)." },
+        { lvl: 2, text: "Correction : « évite la lumière rouge » était un conseil de prudence, pas une règle absolue. Ne l’exclus pas d’office." },
+        { lvl: 1, text: "Pilier trilatéral : inutile de tester au hasard, c’est un dispositif de saisie qui attend une information précise que tu n’as pas encore. Le jour où tu l’auras, tu le reconnaîtras." }
+      ], pos: { x: 1090, y: 1330 } },
 
-    { id: "sb-feldspath", planet: "sombronces", zone: "Sombronces", title: "Campement de Feldspath", status: "todo", hours: "≈ 10 h",
-      summary: "Feldspath serait parti pour Sombronces après avoir atteint le cœur de Léviathe. Son harmonica résonne dans la graine d’Âtrebois.",
-      details: ["Pas encore trouvé (« ? »)."], log: ["DB_FELDSPAR"], hints: [], pos: { x: 1340, y: 1340 } },
+    { id: "sb-feldspath", planet: "sombronces", zone: "Sombronces", title: "Feldspath & la méduse gelée", status: "done", hours: "≈ 12 h",
+      summary: "Feldspath trouvé, avec son vaisseau écrasé dans une liane creuse ! Au bout, une méduse géante congelée : leur épiderme protège des décharges électriques.",
+      details: ["Pour Feldspath, l’espace fonctionne différemment dans Sombronces (le guetteur peut être à deux endroits à la fois).", "Il apprécie le calme : pas pressé de rentrer.", "Selon lui, le bout de la liane renferme un secret pour atteindre le cœur de Léviathe.", "Zone de glace entièrement explorée d’après le journal."], log: ["DB_FELDSPAR", "DB_FROZEN_JELLYFISH"],
+      hints: [
+        { lvl: 1, text: "La graine d’Âtrebois est une poche à part : y envoyer le guetteur ne guidera pas dans Sombronces." },
+        { lvl: 2, text: "Onduloscope sur la fréquence des voyageurs, dans Sombronces : un signal semble sortir de la graine qui mène vers lui. Suivre l’harmonica de graine en graine." }
+      ], pos: { x: 1340, y: 1340 } },
 
     /* ---------- INTRUS ---------- */
     { id: "int-navette", planet: "intrus", zone: "L’Intrus", title: "Navette nomaï gelée", status: "partial", hours: "≈ 7 h",
       summary: "Rappelée jusqu’au canon de la Sablière rouge. Clary, restée en arrière, a perdu le contact avec ses compagnons descendus sous la surface.",
       details: ["Des relevés d’énergie étranges venaient de sous la surface.", "Journal : il reste encore des choses à découvrir ici."],
-      log: ["COMET_SHUTTLE"], hints: [], pos: { x: 1640, y: 1060 } },
+      log: ["COMET_SHUTTLE"], hints: [{ lvl: 1, text: "Il reste un peu à lire sur la navette gelée elle-même, à son emplacement d’origine sur l’Intrus (lors d’une boucle où tu ne la rappelles pas). Lore secondaire." }], pos: { x: 1640, y: 1060 } },
 
-    { id: "int-comete", planet: "intrus", zone: "L’Intrus", title: "Noyau rompu", status: "todo", hours: "≈ 10 h",
-      summary: "Deux Nomaï ont repéré une fissure dans la glace, sur la face ensoleillée de l’Intrus, et s’y sont engagés.",
-      details: ["Le voyageur s’est déjà posé sur l’Intrus une fois.", "Pas besoin de téléportation : on peut y aller en vaisseau."],
-      log: ["COMET_INTERIOR"], hints: [{ lvl: 1, text: "Cherche une fissure / ouverture dans la glace. L’éclaireur peut être particulièrement utile." }],
+    { id: "int-comete", planet: "intrus", zone: "L’Intrus", title: "Noyau rompu", status: "done", hours: "≈ 10 h",
+      summary: "Atteint ! Au cœur de la comète, les deux Nomaï disparus gisent près d’un rocher sphérique brisé. Il contenait une matière étrange, mortelle et sous très forte pression, capable d’engloutir tout le système solaire en un instant si la pierre cédait.",
+      details: ["Accès : se poster dans la fissure côté soleil et attendre que la glace bleue fonde à l’approche du soleil.", "À l’intérieur : matière fantôme partout, repérée grâce à la caméra du guetteur ; une salle à quatre tunnels, puis une cavité avec un grand trou.", "L’un des Nomaï est resté étudier la xénomatière, l’autre est remonté avertir les autres."],
+      log: ["COMET_INTERIOR"], hints: [
+        { lvl: 1, text: "Cherche une fissure / ouverture dans la glace. L’éclaireur peut être particulièrement utile." },
+        { lvl: 1, text: "Ce n’est pas une question d’endroit mais de moment : l’Intrus change en passant près du soleil." },
+        { lvl: 2, text: "Se poster dans la grande fissure côté soleil, avant le passage au plus près du soleil, et attendre : la glace bleue fond." }
+      ],
       pos: { x: 1650, y: 1340 } },
 
     /* ---------- LUNE QUANTIQUE ---------- */
-    { id: "lq-approche", planet: "lune-quantique", zone: "Lune quantique", title: "Approcher la Lune quantique", status: "blocked", hours: "≈ 11 h",
-      summary: "Aucun Âtrien n’a réussi à s’y poser. Dès qu’on ne la regarde plus, elle bouge. Photo de l’éclaireur + pilotage = la photo ne compte plus.",
+    { id: "lq-approche", planet: "lune-quantique", zone: "Lune quantique", title: "Posé sur la Lune quantique !", status: "partial", hours: "≈ 11 h",
+      summary: "Premier Âtrien à s’y poser, grâce à la photo du guetteur affichée dans le cockpit. Un autel nomaï errant y rappelle trois règles : imagerie quantique, intrication quantique… et sixième emplacement.",
       details: ["Les visiteurs arrivent toujours au pôle Sud (raison inconnue des Nomaï).", "Elle disparaît parfois, peut-être vers un sixième emplacement inconnu."],
-      log: ["QUANTUM_MOON", "QM_SIXTH_LOCATION"],
+      log: ["QUANTUM_MOON", "QM_SHRINE", "QM_SIXTH_LOCATION"],
       hints: [
         { lvl: 1, text: "Comment pourrais-tu continuer à observer la Lune pendant que tu t’en rapproches ?" },
         { lvl: 2, text: "Tu n’as pas besoin de l’observer directement : une image compte comme une observation." },
-        { lvl: 2, text: "Qu’est-ce qui, dans ton vaisseau, pourrait continuer à « regarder » la Lune pendant que tu pilotes ?" }
+        { lvl: 2, text: "Qu’est-ce qui, dans ton vaisseau, pourrait continuer à « regarder » la Lune pendant que tu pilotes ?" },
+        { lvl: 3, text: "Solution donnée : depuis le vaisseau, lancer le guetteur vers la Lune et la photographier en entier. La photo reste affichée sur l’écran du cockpit et compte comme une observation. La garder affichée pendant l’approche et l’atterrissage. La caméra d’atterrissage seule = détourner le regard, la Lune disparaît." }
       ], pos: { x: 1960, y: 1060 } },
 
     { id: "lq-navette", planet: "lune-quantique", zone: "Lune quantique", title: "Navette de Solanum", status: "done", hours: "≈ 3 h",
@@ -374,6 +404,7 @@ window.OW = {
     { id: "n-q4", text: "Deux balises : le Vaisseau à deux endroits à la fois ??", pos: { x: 1420, y: 1620 }, color: "blue" },
     { id: "n-q5", text: "Un sixième emplacement pour la Lune quantique ?", pos: { x: 2240, y: 1370 }, color: "blue" },
     { id: "n-q6", text: "« L’Œil de l’univers » : plus vieux que l’univers ?!", pos: { x: 1420, y: 700 }, color: "pink" },
+    { id: "n-q7", text: "Le pilier trilatéral du Vaisseau attend une saisie… laquelle ?", pos: { x: 1620, y: 1620 }, color: "yellow" },
     { id: "n-rule", text: "« Quand une piste demande une idée que tu n’as pas encore → va en explorer une autre. »", pos: { x: 2380, y: 700 }, color: "green" }
   ],
 
@@ -390,7 +421,7 @@ window.OW = {
     { from: "cra-observatoire", to: "lev-noyau",        label: "cyclones inversés",           kind: "rule" },
     { from: "cra-observatoire", to: "lev-sonde",        label: "chercher l’Œil avec une sonde", kind: "clue" },
     { from: "cra-roc",          to: "lq-approche",      label: "un morceau de la Lune ?",     kind: "hypo" },
-    { from: "cra-tour",         to: "lq-approche",      label: "savoir pour le pèlerinage",   kind: "clue" },
+    { from: "cra-tour",         to: "lq-approche",      label: "fresque : tour au-dessus d’un trou noir", kind: "rule" },
     { from: "wh-station",       to: "cra-glacier",      label: "distorsion → récepteur",      kind: "clue" },
     { from: "wh-station",       to: "sn-tours",         label: "modèle des tours",            kind: "clue" },
     { from: "wh-station",       to: "sr-hel",           label: "temps négatif",               kind: "clue" },
@@ -420,7 +451,10 @@ window.OW = {
     { from: "sb-capsule3",      to: "sb-coelacanthes",  label: "danger en route",             kind: "clue" },
     { from: "sb-capsule3",      to: "sb-vaisseau",      label: "suivre les lumières",         kind: "clue" },
     { from: "sb-capsule3",      to: "n-q4",             label: "",                            kind: "clue" },
-    { from: "lev-noyau",        to: "sb-feldspath",     label: "Feldspath y est passé",       kind: "clue" }
+    { from: "sb-feldspath",     to: "lev-noyau",        label: "les méduses isolent ?",       kind: "hypo" },
+    { from: "sb-vaisseau",      to: "n-q7",             label: "",                            kind: "clue" },
+    { from: "lev-sonde",        to: "sb-vaisseau",      label: "coordonnées de l’Œil → pilier ?", kind: "hypo" },
+    { from: "sb-vaisseau",      to: "n-q6",             label: "premier signal de l’Œil",     kind: "clue" }
   ],
 
   /* Chronologie reconstruite avec l'ordre de découverte de la sauvegarde (#) + les heures citées par le joueur */
@@ -476,12 +510,50 @@ window.OW = {
         "Le projet : renvoyer les données de la sonde 22 minutes dans le passé grâce à une supernova.",
         "Générateur de distorsion retiré → mort. Le lore reste dans le journal."
       ] },
-    { id: "t7", hours: "≈ 11 h", order: "#138 – #142", range: [138, 142], title: "Dans les ronces", planets: ["sombronces", "lune-quantique"], current: true,
+    { id: "t7", hours: "11 – 12 h", order: "#138 – #157", range: [138, 157], title: "Dans les ronces", planets: ["sombronces", "lune-quantique"],
       items: [
         "Lune quantique : impossible de piloter tout en l’observant, indice en cours.",
         "Première vraie exploration de Sombronces.",
         "Capsule de sauvetage 3 : deux balises du Vaisseau, des lumières laissées par les survivants.",
-        "Dévoré par des cœlacanthes. Astuce reçue : moteurs coupés, dériver."
+        "Dévoré par des cœlacanthes. Astuce reçue : moteurs coupés, dériver.",
+        "Lumière rouge évitée, lumières blanches suivies jusqu’à la tombe nomaï.",
+        "Petite graine trop étroite : le guetteur y photographie le Vaisseau.",
+        "En suivant le repère du guetteur : le Vaisseau atteint ! Lecture du pont et du premier signal de l’Œil.",
+        "Pilier trilatéral activé : un dispositif de saisie… à quoi ?",
+        "À l’onduloscope, l’harmonica mène à Feldspath et à son vaisseau, dans une liane creuse.",
+        "Au bout de la liane : une méduse géante gelée. Leur peau protège des décharges électriques…"
+      ] }
+    ,{ id: "t8", hours: "12 – 13 h", order: "#158 – #177", range: [158, 177], title: "Le lance-sondes orbital", planets: ["leviathe"],
+      items: [
+        "Ascension jusqu’au lance-sondes orbital, en orbite autour de Léviathe.",
+        "Module de lancement fracturé, module de contrôle intact : il a été créé pour trouver l’Œil de l’univers.",
+        "Le Projet Sablière noire a demandé un tir sur une trajectoire aléatoire.",
+        "Le module de pistage a disparu : le bassin de projection le montre sous l’eau, avec de l’électricité violette.",
+        "Tornade inversée, méduse, champ électrique traversé : le module de pistage retrouvé au cœur de Léviathe.",
+        "La sonde 9 318 054 a détecté l’Œil de l’univers : coordonnées nomaï de l’Œil trouvées ! Léviathe est entièrement explorée."
+      ] }
+    ,{ id: "t9", hours: "≈ 14 h", order: "#177 – #179", range: [177, 179], title: "Au cœur de l’Intrus", planets: ["intrus"],
+      items: [
+        "Coordonnées de l’Œil capturées en photo.",
+        "Posté dans la fissure côté soleil : la glace bleue fond, chute à l’intérieur de la comète.",
+        "Matière fantôme partout : la caméra du guetteur montre les passages libres.",
+        "Salle aux quatre tunnels, cavité au grand trou, puis le cœur : les deux Nomaï disparus près d’un rocher sphérique brisé.",
+        "La matière qu’il renfermait était mortelle et sous pression, capable d’engloutir le système solaire en un instant."
+      ] }
+    ,{ id: "t10", hours: "≈ 14 – 15 h", order: "#180 – #183", range: [180, 183], title: "Premier pas sur la Lune quantique", planets: ["lune-quantique"],
+      items: [
+        "Guetteur lancé depuis le vaisseau, photo de la Lune affichée dans le cockpit : elle ne bouge plus.",
+        "Atterrissage réussi : premier Âtrien sur la Lune quantique !",
+        "Autel nomaï errant : fresques des règles de l’imagerie, de l’intrication et du sixième emplacement.",
+        "Coincé dans l’autel par un gros rocher."
+      ] }
+    ,{ id: "t11", hours: "15 – 18 h (Steam)", order: "#184 – #198", range: [184, 260], title: "Retour dans les profondeurs de Cravité", planets: ["cravite", "sombronces"], current: true,
+      items: [
+        "Sorti de l’autel quantique en éteignant la lampe.",
+        "Tour du savoir quantique : l’escalier est cassé, le sommet reste hors d’atteinte… pour l’instant.",
+        "Capsule de sauvetage 1 et ancienne colonie : les survivants ont fui vers le glacier nord par les cristaux gravitationnels.",
+        "Trois fresques : le Vaisseau capte le signal de l’Œil, se retrouve piégé dans Sombronces, lâche trois capsules.",
+        "Le récit des trois capsules est complet : Cravité, Sablières, Sombronces."
       ] }
   ]
 };
