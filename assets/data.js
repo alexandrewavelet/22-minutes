@@ -94,16 +94,18 @@ window.OW = {
       log: ["TH_NOMAI_MINE"], hints: [], pos: { x: 70, y: 390 } },
 
     { id: "atb-cratere", planet: "atrebois", zone: "Âtrebois", title: "Bois quantique", status: "partial", hours: "≈ 10 h",
-      summary: "Dans le cratère du pôle Sud : un rocher quantique, des arbres, un poème écrit sur un arbre. Énigme « obscurité + immobile ».",
+      summary: "Dans le cratère du pôle Sud : un fragment quantique, des arbres, un poème écrit sur un arbre. Pas d’énigme : c’est une introduction aux objets quantiques.",
       details: [
         "Chail y a détecté un signal très similaire à celui de la Lune quantique.",
-        "Monté sur le rocher : impossible de faire complètement noir à cause de l’ouverture du cratère. Mis de côté.",
-        "Journal : il reste encore des choses à découvrir ici."
+        "Le fragment se déplace quand on ne le regarde pas : détourner le regard puis le chercher suffit à compléter la note manquante du journal.",
+        "Le poème (« Ah oui, celui dans les bois ») est de Gabbro : un poème quantique qui en vaut 24.",
+        "Ne débloque rien d’autre. La piste « obscurité + immobile » sur le rocher était une fausse piste."
       ],
       log: ["TH_QUANTUM_SHARD"],
       hints: [
         { lvl: 1, text: "Tu n’as pas besoin de déplacer la roche. Pense à la règle « être en contact avec un objet quantique quand il se déplace »." },
-        { lvl: 2, text: "Selon ChatGPT : ce lieu ne serait pas encore résoluble, il manquerait une connaissance. (À revérifier.)" }
+        { lvl: 2, text: "Selon ChatGPT : ce lieu ne serait pas encore résoluble, il manquerait une connaissance. (Faux : il n’y a rien à résoudre.)" },
+        { lvl: 3, text: "Solution donnée après la fin du jeu : aucune énigme, juste observer le fragment se déplacer quand on ne le regarde pas." }
       ], pos: { x: 320, y: 380 } },
 
     /* ---------- ROCAILLE ---------- */
